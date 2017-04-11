@@ -10,6 +10,8 @@
 
 $primary-color: black;
 
-body {
-  background-color: $primary-color; // Test
+.main-grid {
+  width: 100%;
+  height: 20px;
+  background-color: $primary-color;
 }
