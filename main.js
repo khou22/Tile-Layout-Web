@@ -53,6 +53,7 @@ var GridView = React.createClass({
               subtitle = {tile.subtitle}
               description = {tile.description}
               image = {tile.image}
+              link = {tile.link}
               size = {size} />
       )
     })
@@ -74,19 +75,19 @@ var Tile = React.createClass({
 
   componentDidMount: function() {
     window.setTimeout(function(){
-      // var descriptionHeight = $("#" + this.props.id).height(); // Get height of text
+      // Get height of description text
       var descriptionHeight = document.getElementById(this.props.id).offsetHeight;
 
       // Save
       this.setState({
         descriptionHeight: descriptionHeight
       })
-    }.bind(this), 1)
+    }.bind(this), 1) // Wait for it to load before getting the height
   },
 
   // Start hover
   onMouseEnter: function() {
-    console.log("Hovering");
+    // console.log("Hovering");
     this.setState({
       hover: true
     })
@@ -94,7 +95,7 @@ var Tile = React.createClass({
 
   // End hover
   onMouseLeave: function() {
-    console.log("Not hovering");
+    // console.log("Not hovering");
     this.setState({
       hover: false
     })
@@ -106,7 +107,7 @@ var Tile = React.createClass({
       height: this.props.size.height
     }
 
-    console.log(this.props.id + ": " + this.state.descriptionHeight);
+    // console.log(this.props.id + ": " + this.state.descriptionHeight);
     var tileTextStyle = {
       bottom: -this.state.descriptionHeight + "px"
     }
@@ -130,10 +131,11 @@ var Tile = React.createClass({
       tileTextClass += " tile-text-hover"
     }
     return (
-      <div className="tile"
+      <a className="tile"
+            href={this.props.link}
             style={tileStyle}
-            onMouseEnter={this.onMouseEnter.bind(this)}
-            onMouseLeave={this.onMouseLeave.bind(this)}>
+            onMouseEnter={this.onMouseEnter}
+            onMouseLeave={this.onMouseLeave}>
 
         <div className="tile-content">
           <div className={tileTextClass} style={tileTextStyle}>
@@ -144,7 +146,7 @@ var Tile = React.createClass({
         </div>
 
         <div className={backgroundClass} style={backgroundStyle}></div>
-      </div>
+      </a>
     )
   }
 })
