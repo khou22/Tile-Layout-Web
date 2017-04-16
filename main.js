@@ -47,6 +47,8 @@ var GridView = React.createClass({
       }
       return (
         <Tile title = {tile.title}
+              subtitle = {tile.subtitle}
+              description = {tile.description}
               image = {tile.image}
               size = {size} />
       )
@@ -101,7 +103,11 @@ var Tile = React.createClass({
             onMouseLeave={this.onMouseLeave.bind(this)}>
 
         <div className="tile-content">
-          {this.props.title}
+          <div className="tile-text">
+            <span className="tile-title">{this.props.title}</span><br />
+            <span className="tile-subtitle">{this.props.subtitle}</span><br />
+            <span className="tile-description">{this.props.description}</span><br />
+          </div>
         </div>
 
         <div className={backgroundClass} style={backgroundStyle}></div>
