@@ -22,15 +22,18 @@
   margin-top: -4px; }
   .tile-text {
     position: absolute;
-    bottom: 5%;
     left: 5%;
-    width: 100%;
+    width: 95%;
+    z-index: 9999;
     color: white;
-    z-index: 9999; }
+    transition: all .25s;
+    transition-timing-function: ease-in-out; }
+    .tile-text-hover {
+      bottom: 5% !important; }
   .tile-title {
-    font-size: 32px; }
+    font-size: 48px; }
   .tile-subtitle {
-    font-size: 24px; }
+    font-size: 32px; }
   .tile-description {
     font-size: 18px; }
   .tile-content {

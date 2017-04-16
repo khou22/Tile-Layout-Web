@@ -22,22 +22,28 @@ $primary-color: white;
   /******   Content Styling   ******/
   &-text {
     position: absolute;
-    bottom: 5%;
-    left: 5%;
+    left: 5%; // Padding
+    width: 95%; // Don't fill up entire tile
+    z-index: 9999; // Ensure above background
 
-    width: 100%;
+    color: white; // Font color
 
-    color: white;
+    // Animate hover transitions
+    transition: all .25s; // Applies to all changes
+    transition-timing-function: ease-in-out; // Transition timing
 
-    z-index: 9999;
+    // Styling when hovering
+    &-hover {
+      bottom: 5% !important; // Override other positioning
+    }
   }
 
   &-title {
-    font-size: 32px;
+    font-size: 48px;
   }
 
   &-subtitle {
-    font-size: 24px;
+    font-size: 32px;
   }
 
   &-description {

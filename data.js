@@ -2,7 +2,7 @@ var data = [
   {
     title: "Title",
     subtitle: "Subtitle",
-    description: "Description",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dolor neque, rhoncus id rhoncus quis, vestibulum non justo. Morbi condimentum, nisl at vestibulum finibus, velit sem condimentum est, a ullamcorper urna est ut nibh. Cras sagittis, lorem in facilisis congue, ipsum nunc tempus sapien, nec varius velit ante eget nisl.",
     image: "placeholder.png",
     link: "#"
   },

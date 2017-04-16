@@ -36,7 +36,9 @@ var GridView = React.createClass({
     var baseWidth = this.state.gridWidth * Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
     baseWidth += -2; // Slight amount of wiggle room
 
+    var idCount = 0; // Give each tile a unique ID
     var tileNodes = this.state.data.map(function(tile) {
+      idCount++; // Increment counter
       var width = baseWidth;
       var height = width; // Square tile
 
@@ -46,7 +48,8 @@ var GridView = React.createClass({
         height: height
       }
       return (
-        <Tile title = {tile.title}
+        <Tile id = {"gridTile" + idCount}
+              title = {tile.title}
               subtitle = {tile.subtitle}
               description = {tile.description}
               image = {tile.image}
@@ -64,8 +67,21 @@ var GridView = React.createClass({
 var Tile = React.createClass({
   getInitialState: function() {
     return {
-      hover: false
+      hover: false,
+      descriptionHeight: 0
     }
+  },
+
+  componentDidMount: function() {
+    window.setTimeout(function(){
+      // var descriptionHeight = $("#" + this.props.id).height(); // Get height of text
+      var descriptionHeight = document.getElementById(this.props.id).offsetHeight;
+
+      // Save
+      this.setState({
+        descriptionHeight: descriptionHeight
+      })
+    }.bind(this), 1)
   },
 
   // Start hover
@@ -90,12 +106,29 @@ var Tile = React.createClass({
       height: this.props.size.height
     }
 
-    // Background styling
+    console.log(this.props.id + ": " + this.state.descriptionHeight);
+    var tileTextStyle = {
+      bottom: -this.state.descriptionHeight + "px"
+    }
+
+    // Inline style for line breaks
+    var tileSubtitleBreak = { lineHeight: 32 + "px" }
+    var subtitleDescriptionBreak = { lineHeight: 56 + "px" }
+
+    // Background image
     var backgroundStyle = {
       backgroundImage: 'url(' + this.props.image + ')'
     }
-    var backgroundClass = "tile-background";
-    if (this.state.hover) { backgroundClass += " tile-background-hover" }
+
+    // Hover classes
+    var backgroundClass = "tile-background"; // Background class
+    var tileTextClass = "tile-text"; // Tile text
+
+    // If hovering
+    if (this.state.hover) {
+      backgroundClass += " tile-background-hover"
+      tileTextClass += " tile-text-hover"
+    }
     return (
       <div className="tile"
             style={tileStyle}
@@ -103,10 +136,10 @@ var Tile = React.createClass({
             onMouseLeave={this.onMouseLeave.bind(this)}>
 
         <div className="tile-content">
-          <div className="tile-text">
-            <span className="tile-title">{this.props.title}</span><br />
-            <span className="tile-subtitle">{this.props.subtitle}</span><br />
-            <span className="tile-description">{this.props.description}</span><br />
+          <div className={tileTextClass} style={tileTextStyle}>
+            <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak}/>
+            <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak}/>
+            <span className="tile-description" id={this.props.id}>{this.props.description}</span><br />
           </div>
         </div>
 
