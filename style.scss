@@ -15,3 +15,12 @@ $primary-color: white;
   height: 20px;
   background-color: $primary-color;
 }
+
+.tile {
+  display: inline-block; // Wrap around
+
+  // Background image options
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
