@@ -33,5 +33,26 @@ var data = [
     description: "Description 5",
     image: "placeholder.png",
     link: "#"
+  },
+  {
+    title: "Title 6",
+    subtitle: "Subtitle 6",
+    description: "Description 6",
+    image: "placeholder.png",
+    link: "#"
+  },
+  {
+    title: "Title 7",
+    subtitle: "Subtitle 7",
+    description: "Description 7",
+    image: "placeholder.png",
+    link: "#"
+  },
+  {
+    title: "Title 8",
+    subtitle: "Subtitle 8",
+    description: "Description 8",
+    image: "placeholder.png",
+    link: "#"
   }
 ];

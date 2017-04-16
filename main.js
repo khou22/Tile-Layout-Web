@@ -34,6 +34,7 @@ var GridView = React.createClass({
   render: function() {
     // Establish standards
     var baseWidth = this.state.gridWidth * Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
+    baseWidth += -2; // Slight amount of wiggle room
 
     var tileNodes = this.state.data.map(function(tile) {
       var width = baseWidth;
