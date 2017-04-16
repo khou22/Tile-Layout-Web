@@ -14,13 +14,41 @@ $primary-color: white;
   width: 100%;
   height: 20px;
   background-color: $primary-color;
+
+  overflow: visible;
 }
 
 .tile {
+  position: relative;
   display: inline-block; // Wrap around
+  overflow: hidden; // Prevent the content from spilling out
 
-  // Background image options
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  margin-top: -4px; // Compensate for weird spacing
+
+  &-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-background {
+    margin-top: -100%;
+    width: 100%;
+    height: 100%;
+
+    // Background image options
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    // Animate transitions
+    transition: all .25s; // Applies to all changes
+    transition-timing-function: ease-in-out; // Transition timing
+
+    &-hover {
+      transform: scale(1.2, 1.2); // Scale the background image
+
+      // Filter when hovering
+      filter: blur(2px) brightness(0.8) grayscale(0.2);
+    }
+  }
 }

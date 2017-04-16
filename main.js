@@ -44,7 +44,6 @@ var GridView = React.createClass({
         width: width,
         height: height
       }
-      console.log(tile);
       return (
         <Tile title = {tile.title}
               image = {tile.image}
@@ -60,15 +59,51 @@ var GridView = React.createClass({
 })
 
 var Tile = React.createClass({
+  getInitialState: function() {
+    return {
+      hover: false
+    }
+  },
+
+  // Start hover
+  onMouseEnter: function() {
+    console.log("Hovering");
+    this.setState({
+      hover: true
+    })
+  },
+
+  // End hover
+  onMouseLeave: function() {
+    console.log("Not hovering");
+    this.setState({
+      hover: false
+    })
+  },
+
   render: function() {
     var tileStyle = {
       width: this.props.size.width,
-      height: this.props.size.height,
+      height: this.props.size.height
+    }
+
+    // Background styling
+    var backgroundStyle = {
       backgroundImage: 'url(' + this.props.image + ')'
-    };
+    }
+    var backgroundClass = "tile-background";
+    if (this.state.hover) { backgroundClass += " tile-background-hover" }
     return (
-      <div className="tile" style={tileStyle}>
-        {this.props.title}
+      <div className="tile"
+            style={tileStyle}
+            onMouseEnter={this.onMouseEnter.bind(this)}
+            onMouseLeave={this.onMouseLeave.bind(this)}>
+
+        <div className="tile-content">
+          {this.props.title}
+        </div>
+
+        <div className={backgroundClass} style={backgroundStyle}></div>
       </div>
     )
   }
