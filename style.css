@@ -19,14 +19,16 @@
   position: relative;
   display: inline-block;
   overflow: hidden;
-  margin-top: -4px; }
+  cursor: pointer;
+  margin-top: -4px;
+  background-color: black; }
   .tile-text {
     position: absolute;
     left: 5%;
     width: 95%;
     z-index: 9999;
     color: white;
-    transition: all .25s;
+    transition: all 0.2s;
     transition-timing-function: ease-in-out; }
     .tile-text-hover {
       bottom: 5% !important; }
@@ -45,16 +47,14 @@
     left: 0;
     width: 100%;
     height: 100%;
+    opacity: 1;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    transition: all .25s;
+    transition: all 0.2s;
     transition-timing-function: ease-in-out; }
     .tile-background-hover {
-      width: 120%;
-      height: 120%;
-      margin-left: -10%;
-      margin-top: -10%;
-      filter: blur(2px) brightness(0.8) grayscale(0.2); }
+      transform: scale(1.2, 1.2);
+      opacity: 0.6; }
 
 /*# sourceMappingURL=style.css.map */

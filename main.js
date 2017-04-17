@@ -6,7 +6,7 @@ var GridView = React.createClass({
   getInitialState: function() {
     return {
       data: data,
-      numColumns: 3, // Number of columns in grid
+      numColumns: 4, // Number of columns in grid
       gridWidth: 0 // Will override immediately
     }
   },

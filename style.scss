@@ -9,6 +9,7 @@
 **************************************************************/
 
 $primary-color: white;
+$animation-duration: .2s;
 
 .main-grid {
   width: 100%;
@@ -29,7 +30,7 @@ $primary-color: white;
     color: white; // Font color
 
     // Animate hover transitions
-    transition: all .25s; // Applies to all changes
+    transition: all $animation-duration; // Applies to all changes
     transition-timing-function: ease-in-out; // Transition timing
 
     // Styling when hovering
@@ -54,8 +55,12 @@ $primary-color: white;
   position: relative;
   display: inline-block; // Wrap around
   overflow: hidden; // Prevent the content from spilling out
+  cursor: pointer;
 
   margin-top: -4px; // Compensate for weird spacing
+
+  // The color behind the opacity
+  background-color: black;
 
   &-content {
     width: 100%;
@@ -67,8 +72,13 @@ $primary-color: white;
     top: 0;
     left: 0;
 
+    // Sizing
     width: 100%;
     height: 100%;
+
+    // Background image filter
+    // filter: blur(1px) brightness(0.8) grayscale(0.2);
+    opacity: 1; // Start completely visible
 
     // Background image options
     background-repeat: no-repeat;
@@ -76,18 +86,15 @@ $primary-color: white;
     background-size: cover;
 
     // Animate transitions
-    transition: all .25s; // Applies to all changes
+    transition: all $animation-duration; // Applies to all changes
     transition-timing-function: ease-in-out; // Transition timing
 
     &-hover {
-      // transform: scale(1.2, 1.2); // Scale the background image
-      width: 120%;
-      height: 120%;
-      margin-left: -10%;
-      margin-top: -10%;
+      transform: scale(1.2, 1.2); // Scale the background image
 
       // Filter when hovering
-      filter: blur(2px) brightness(0.8) grayscale(0.2);
+      // filter: blur(0px) brightness(1) grayscale(0);
+      opacity: 0.6; // Dim so text can be visible
     }
   }
 }
