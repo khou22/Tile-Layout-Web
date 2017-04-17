@@ -6,7 +6,7 @@ var GridView = React.createClass({
   getInitialState: function() {
     return {
       data: data,
-      numColumns: 4, // Number of columns in grid
+      numColumns: 5, // Number of columns in grid
       gridWidth: 0 // Will override immediately
     }
   },
@@ -21,7 +21,7 @@ var GridView = React.createClass({
 
   // On window resize
   windowResize: function() {
-    var gridWidth = $("#" + gridID).width(); // Get width of grid
+    var gridWidth = $("#" + gridID).width() - 1; // Get width of grid
 
     this.setState({
       gridWidth: gridWidth
@@ -34,13 +34,18 @@ var GridView = React.createClass({
   render: function() {
     // Establish standards
     var baseWidth = this.state.gridWidth * Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
-    baseWidth += -2; // Slight amount of wiggle room
+    if (this.state.gridWidth != 0) {
+      baseWidth += -Math.round(baseWidth / this.state.gridWidth); // Slight amount of wiggle room
+    } else {
+      baseWidth += -8;
+    }
 
     var idCount = 0; // Give each tile a unique ID
     var tileNodes = this.state.data.map(function(tile) {
       idCount++; // Increment counter
-      var width = baseWidth;
-      var height = width; // Square tile
+      var numBlocks = tile.size; // Number of blocks to fill
+      var width = baseWidth * numBlocks;
+      var height = baseWidth; // Square tile
 
       // Size information to pass to child
       var size = {
@@ -104,7 +109,8 @@ var Tile = React.createClass({
   render: function() {
     var tileStyle = {
       width: this.props.size.width,
-      height: this.props.size.height
+      height: this.props.size.height,
+      animationDelay: 1 + "s"
     }
 
     // console.log(this.props.id + ": " + this.state.descriptionHeight);
@@ -131,7 +137,7 @@ var Tile = React.createClass({
       tileTextClass += " tile-text-hover"
     }
     return (
-      <a className="tile"
+      <a className="tile tile-entrance"
             href={this.props.link}
             style={tileStyle}
             onMouseEnter={this.onMouseEnter}
