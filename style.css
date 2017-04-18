@@ -1,6 +1,6 @@
 /**************************************************************
 * Name: Kevin Hou
-* License:
+* License: MIT
 *
 * Description: SCSS styling for tile layout for web.
 *
@@ -49,7 +49,7 @@
     display: inline-block;
     background-color: orange; }
   .tile-title {
-    font-size: 46px; }
+    font-size: 42px; }
   .tile-subtitle {
     font-size: 26px; }
   .tile-description {

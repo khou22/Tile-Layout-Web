@@ -1,12 +1,27 @@
+/**************************************************************
+* Name: Kevin Hou
+* License: MIT
+*
+* Description: Tile layout library
+*
+* Usage:
+*  <script src="data.js"></script>
+*  <div id="grid"></div>
+*  <script type="text/jsx;harmoney-true" src="main.js"></script>
+*
+**************************************************************/
+
 const gridID = 'grid'; // Grid id
+const mobileCuttoff = 800; // Number of piexels for cuttoff to mobile
 
 var GridView = React.createClass({
 
   // Constructor
   getInitialState: function() {
     return {
-      data: data,
-      numColumns: 5, // Number of columns in grid
+      data: gridData.data,
+      numColumns: gridData.columns, // Number of columns in grid
+      textColor: gridData.textColor, // Color of the text
       gridWidth: 0 // Will override immediately
     }
   },
@@ -22,6 +37,13 @@ var GridView = React.createClass({
   // On window resize
   windowResize: function() {
     var gridWidth = $("#" + gridID).width() - 1; // Get width of grid
+
+    var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+    if (isMobile) {
+      this.setState({
+        columns: 1
+      })
+    }
 
     this.setState({
       gridWidth: gridWidth
@@ -39,6 +61,8 @@ var GridView = React.createClass({
     } else {
       baseWidth += -8;
     }
+
+    var textColor = this.state.textColor; // Store text color
 
     var idCount = 0; // Give each tile a unique ID
     var tileNodes = this.state.data.map(function(tile) {
@@ -60,6 +84,7 @@ var GridView = React.createClass({
               image = {tile.image}
               link = {tile.link}
               category = {tile.category}
+              textColor = {textColor}
               size = {size} />
       )
     })
@@ -125,6 +150,7 @@ var Tile = React.createClass({
 
     // console.log(this.props.id + ": " + this.state.descriptionHeight);
     var tileTextStyle = {
+      color: this.props.textColor,
       bottom: -this.state.descriptionHeight + "px"
     }
 
