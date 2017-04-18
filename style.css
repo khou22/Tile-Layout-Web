@@ -24,9 +24,10 @@
   margin-top: -4px;
   background-color: black; }
   .tile-entrance {
-    opacity: 1;
     animation-name: bigEntrance;
     -webkit-animation-name: bigEntrance;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
     animation-duration: 0.5s;
     -webkit-animation-duration: 0.5s;
     animation-timing-function: ease-out;
@@ -42,11 +43,11 @@
     .tile-text-hover {
       bottom: 5% !important; }
   .tile-title {
-    font-size: 48px; }
+    font-size: 46px; }
   .tile-subtitle {
-    font-size: 32px; }
+    font-size: 26px; }
   .tile-description {
-    font-size: 18px; }
+    font-size: 16px; }
   .tile-content {
     width: 100%;
     height: 100%; }
@@ -64,7 +65,7 @@
     transition-timing-function: ease-in-out; }
     .tile-background-hover {
       transform: scale(1.2, 1.2);
-      opacity: 0.6; }
+      opacity: 0.5; }
 
 @keyframes bigEntrance {
   0% {

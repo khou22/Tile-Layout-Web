@@ -106,11 +106,20 @@ var Tile = React.createClass({
     })
   },
 
+  // Get its place in the order of tiles (ie. first tile is 1, second is 2)
+  getTileRank: function() {
+    var idNumber = parseInt(this.props.id.replace(/[^0-9\.]/g, '')); // Get integer out of ID
+    return idNumber; // Return
+  },
+
   render: function() {
+    var rank = this.getTileRank(); // Get the tile's rank/order
+    var delay = (rank * .05) + .05; // Delay in seconds
+
     var tileStyle = {
       width: this.props.size.width,
       height: this.props.size.height,
-      animationDelay: 1 + "s"
+      animationDelay: delay + "s"
     }
 
     // console.log(this.props.id + ": " + this.state.descriptionHeight);

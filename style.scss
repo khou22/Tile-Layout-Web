@@ -23,11 +23,12 @@ $animation-duration: .2s;
   opacity: 0; // Start transparent
 
   &-entrance {
-    opacity: 1; // Show tiles
-    
     // Entrance Animation
     animation-name: bigEntrance;
   	-webkit-animation-name: bigEntrance;
+
+    animation-fill-mode: forwards; // Keep the state after it's been completed
+    -webkit-animation-fill-mode: forwards;
 
   	animation-duration: 0.5s;
   	-webkit-animation-duration: 0.5s;
@@ -56,15 +57,15 @@ $animation-duration: .2s;
   }
 
   &-title {
-    font-size: 48px;
+    font-size: 46px;
   }
 
   &-subtitle {
-    font-size: 32px;
+    font-size: 26px;
   }
 
   &-description {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   /******   Container Structure   ******/
@@ -110,7 +111,7 @@ $animation-duration: .2s;
 
       // Filter when hovering
       // filter: blur(0px) brightness(1) grayscale(0);
-      opacity: 0.6; // Dim so text can be visible
+      opacity: 0.5; // Dim so text can be visible
     }
   }
 }
