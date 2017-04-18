@@ -59,6 +59,7 @@ var GridView = React.createClass({
               description = {tile.description}
               image = {tile.image}
               link = {tile.link}
+              category = {tile.category}
               size = {size} />
       )
     })
@@ -154,6 +155,7 @@ var Tile = React.createClass({
 
         <div className="tile-content">
           <div className={tileTextClass} style={tileTextStyle}>
+            <div className="tile-category">{this.props.category.label}</div><br />
             <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak}/>
             <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak}/>
             <span className="tile-description" id={this.props.id}>{this.props.description}</span><br />
@@ -167,6 +169,6 @@ var Tile = React.createClass({
 })
 
 React.render(
-  React.createElement(GridView, null),
+  React.createElement(GridView, null), // React.createElement(type, [props])
   document.getElementById(gridID)
 );

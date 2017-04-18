@@ -42,6 +42,12 @@
     transition-timing-function: ease-in-out; }
     .tile-text-hover {
       bottom: 5% !important; }
+  .tile-category {
+    padding: 4px;
+    font-size: 12px;
+    border-radius: 2px;
+    display: inline-block;
+    background-color: orange; }
   .tile-title {
     font-size: 46px; }
   .tile-subtitle {

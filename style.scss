@@ -56,6 +56,14 @@ $animation-duration: .2s;
     }
   }
 
+  &-category {
+    padding: 4px;
+    font-size: 12px;
+    border-radius: 2px;
+    display: inline-block;
+    background-color: orange;
+  }
+
   &-title {
     font-size: 46px;
   }
