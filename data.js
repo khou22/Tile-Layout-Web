@@ -8,7 +8,7 @@ var data = [
     size: "2",
     category: {
       label: "Category",
-      color: "#3286A8"
+      color: "orange"
     }
   },
   {

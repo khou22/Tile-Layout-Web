@@ -43,8 +43,8 @@
     .tile-text-hover {
       bottom: 5% !important; }
   .tile-category {
-    padding: 4px;
-    font-size: 12px;
+    padding: 4px 6px 4px 6px;
+    font-size: 10px;
     border-radius: 2px;
     display: inline-block;
     background-color: orange; }

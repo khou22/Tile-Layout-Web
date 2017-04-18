@@ -128,7 +128,12 @@ var Tile = React.createClass({
       bottom: -this.state.descriptionHeight + "px"
     }
 
+    var tileCategoryStyle = {
+      backgroundColor: this.props.category.color
+    }
+
     // Inline style for line breaks
+    var categoryTitleBreak = { lineHeight: 32 + "px" }
     var tileSubtitleBreak = { lineHeight: 32 + "px" }
     var subtitleDescriptionBreak = { lineHeight: 56 + "px" }
 
@@ -155,7 +160,7 @@ var Tile = React.createClass({
 
         <div className="tile-content">
           <div className={tileTextClass} style={tileTextStyle}>
-            <div className="tile-category">{this.props.category.label}</div><br />
+            <div className="tile-category" style={tileCategoryStyle}>{this.props.category.label}</div><br style={categoryTitleBreak}/>
             <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak}/>
             <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak}/>
             <span className="tile-description" id={this.props.id}>{this.props.description}</span><br />
