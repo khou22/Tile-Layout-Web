@@ -50,7 +50,7 @@ $mobile-cuttoff: 600px;
     position: absolute;
     left: 5%; // Padding
     width: 95%; // Don't fill up entire tile
-    z-index: 9999; // Ensure above background
+    z-index: 0; // Ensure above background
 
     color: white; // Font color
 
@@ -104,6 +104,7 @@ $mobile-cuttoff: 600px;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1;
 
     // Sizing
     width: 100%;
