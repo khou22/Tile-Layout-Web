@@ -1,6 +1,7 @@
 var gridData = {
   columns: 5,
   textColor: "white",
+  openNewWindow: true,
   data: [
     {
       title: "Title",

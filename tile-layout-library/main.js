@@ -22,6 +22,7 @@ var GridView = React.createClass({
       data: gridData.data,
       numColumns: gridData.columns, // Number of columns in grid
       textColor: gridData.textColor, // Color of the text
+      newWindow: gridData.openNewWindow, // If will open new window
       gridWidth: 0 // Will override immediately
     }
   },
@@ -56,6 +57,7 @@ var GridView = React.createClass({
     }
 
     var textColor = this.state.textColor; // Store text color
+    var newWindow = this.state.newWindow;
 
     var idCount = 0; // Give each tile a unique ID
     var tileNodes = this.state.data.map(function(tile) {
@@ -78,6 +80,7 @@ var GridView = React.createClass({
               link = {tile.link}
               category = {tile.category}
               textColor = {textColor}
+              openNewWindow = {newWindow}
               size = {size} />
       )
     })
@@ -135,6 +138,12 @@ var Tile = React.createClass({
     var rank = this.getTileRank(); // Get the tile's rank/order
     var delay = (rank * .05) + .05; // Delay in seconds
 
+    // Setup if opening in new window
+    var target = "";
+    if (this.props.openNewWindow) {
+      target = "_blank";
+    }
+
     var tileStyle = {
       width: this.props.size.width,
       height: this.props.size.height,
@@ -174,6 +183,7 @@ var Tile = React.createClass({
       <a className="tile tile-entrance"
             href={this.props.link}
             style={tileStyle}
+            target={target}
             onMouseEnter={this.onMouseEnter}
             onMouseLeave={this.onMouseLeave}>
 
