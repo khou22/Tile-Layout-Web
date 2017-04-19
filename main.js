@@ -38,13 +38,6 @@ var GridView = React.createClass({
   windowResize: function() {
     var gridWidth = $("#" + gridID).width() - 1; // Get width of grid
 
-    var isMobile = window.matchMedia("only screen and (max-width: 760px)");
-    if (isMobile) {
-      this.setState({
-        columns: 1
-      })
-    }
-
     this.setState({
       gridWidth: gridWidth
     });

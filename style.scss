@@ -10,6 +10,7 @@
 
 $primary-color: white;
 $animation-duration: .2s;
+$mobile-cuttoff: 600px;
 
 .main-grid {
   width: 100%;
@@ -17,6 +18,15 @@ $animation-duration: .2s;
   background-color: $primary-color;
 
   overflow: visible;
+}
+
+@media only screen and (max-width: $mobile-cuttoff) {
+
+  // Make it all one column
+  .tile {
+    width: 100% !important;
+    height: 350px !important;
+  }
 }
 
 .tile {
@@ -65,7 +75,7 @@ $animation-duration: .2s;
   }
 
   &-title {
-    font-size: 42px; 
+    font-size: 42px;
   }
 
   &-subtitle {
