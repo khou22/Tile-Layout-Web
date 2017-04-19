@@ -7,7 +7,7 @@
 * Usage:
 *  <script src="data.js"></script>
 *  <div id="grid"></div>
-*  <script type="text/jsx;harmoney-true" src="main.js"></script>
+*  <script type="text/jsx;harmoney-true" src="tile-layout-library/main.js"></script>
 *
 **************************************************************/
 
