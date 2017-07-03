@@ -11047,16 +11047,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 **************************************************************/
 var id = 'grid'; // Grid ID base string
 // Get sub-component
-console.log(gridData);
+var targetElement = document.getElementById(id); // Get element
+var data = gridData; // Master data object
+// console.log(data); // Debugging to see what data is being passed in
+if (data === null) {
+    (0, _reactDom.render)(_react2['default'].createElement(
+        'div',
+        null,
+        _react2['default'].createElement(
+            'p',
+            null,
+            'Make sure your data object is defined before including the tile-layout-library'
+        )
+    ), targetElement);
+}
 
 (0, _reactDom.render)(_react2['default'].createElement(_GridView2['default'], {
     gridID: id,
-    data: gridData.data,
-    columns: gridData.columns,
-    textColor: gridData.textColor,
-    openNewWindow: gridData.openNewWindow
-}), // React.createElement(type, { ...props })
-document.getElementById(id));
+    data: data.data,
+    columns: data.columns,
+    textColor: data.textColor,
+    openNewWindow: data.openNewWindow
+}), targetElement);
 
 /***/ }),
 /* 85 */
@@ -23888,7 +23900,7 @@ var GridView = function (_Component) {
                 if (gridWidth !== 0) {
                     baseWidth += -2; // Slight amount of wiggle room
                 }
-                console.log(baseWidth);
+                // console.log(baseWidth);
 
                 var textColor = this.props.textColor; // Store text color
 
@@ -24321,6 +24333,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * License: MIT
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Description: 'Photo-Tile' sub-component
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *              No text content
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *              Zooms on hover - no filter change
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 **************************************************************/
 // Get React modules

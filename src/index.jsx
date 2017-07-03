@@ -11,20 +11,30 @@
 *
 **************************************************************/
 import React from 'react';
-import { render } from 'react-dom'
+import { render } from 'react-dom';
 import GridView from './GridView.jsx'; // Get sub-component
 import './styles.scss'; // Import styling
 
 const id = 'grid'; // Grid ID base string
-console.log(gridData);
+const targetElement = document.getElementById(id); // Get element
+const data = gridData; // Master data object
+// console.log(data); // Debugging to see what data is being passed in
+if (data === null) {
+    render(
+        <div>
+            <p>Make sure your data object is defined before including the tile-layout-library</p>
+        </div>,
+        targetElement,
+    );
+}
 
 render(
     <GridView
         gridID={id}
-        data={gridData.data}
-        columns={gridData.columns}
-        textColor={gridData.textColor}
-        openNewWindow={gridData.openNewWindow}
-    />, // React.createElement(type, { ...props })
-    document.getElementById(id)
+        data={data.data}
+        columns={data.columns}
+        textColor={data.textColor}
+        openNewWindow={data.openNewWindow}
+    />,
+    targetElement,
 );

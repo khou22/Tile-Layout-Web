@@ -36,7 +36,7 @@ class GridView extends Component {
         if (gridWidth !== 0) {
             baseWidth += -2; // Slight amount of wiggle room
         }
-        console.log(baseWidth);
+        // console.log(baseWidth);
 
         const textColor = this.props.textColor; // Store text color
 

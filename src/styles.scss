@@ -54,7 +54,6 @@ $mobile-cuttoff: 600px;
   &-text {
     position: absolute; // Absolute positioning
     width: 100%;
-    padding: 2% 5% 0 5%; // Pad top left and right
     z-index: 0; // Ensure above background
 
     background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
@@ -72,12 +71,13 @@ $mobile-cuttoff: 600px;
     // Styling when hovering
     &-hover {
       bottom: 0% !important; // Override other positioning
-      padding: 2% 5% 3% 5%; // Pad top left and right
+      padding-bottom: 12px; // Pad top left and right
     }
   }
 
   &-visible-text {
-      margin-bottom: 12px; // Mimick padding
+      margin-bottom: 12px;
+      margin-left: 12px;
   }
 
   &-category {
@@ -98,6 +98,7 @@ $mobile-cuttoff: 600px;
 
   &-description {
     font-size: 15px;
+    margin-left: 12px;
   }
 
   /******   Container Structure   ******/

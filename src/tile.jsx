@@ -66,8 +66,8 @@ class Tile extends Component {
         };
 
         const descriptionHeight = (this.state !== null) ? this.state.descriptionHeight : 0;
-        const bottom = -descriptionHeight;
-        // console.log(this.props.id + ': ' + bottom);
+        const bottom = -descriptionHeight - 16;
+        console.log(this.props.id + ': ' + bottom);
         const tileTextStyle = {
             color: this.props.textColor,
             bottom: `${bottom}px`,
@@ -120,7 +120,7 @@ class Tile extends Component {
                             <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak} />
                             <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak} />
                         </div>
-                        <span className="tile-description" id={this.props.id}>{this.props.description}</span><br />
+                        <div className="tile-description" id={this.props.id}>{this.props.description}</div><br />
                     </div>
                 </div>
 

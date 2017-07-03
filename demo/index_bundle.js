@@ -11047,16 +11047,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 **************************************************************/
 var id = 'grid'; // Grid ID base string
 // Get sub-component
-console.log(gridData);
+var targetElement = document.getElementById(id); // Get element
+var data = gridData; // Master data object
+// console.log(data); // Debugging to see what data is being passed in
+if (data === null) {
+    (0, _reactDom.render)(_react2['default'].createElement(
+        'div',
+        null,
+        _react2['default'].createElement(
+            'p',
+            null,
+            'Make sure your data object is defined before including the tile-layout-library'
+        )
+    ), targetElement);
+}
 
 (0, _reactDom.render)(_react2['default'].createElement(_GridView2['default'], {
     gridID: id,
-    data: gridData.data,
-    columns: gridData.columns,
-    textColor: gridData.textColor,
-    openNewWindow: gridData.openNewWindow
-}), // React.createElement(type, { ...props })
-document.getElementById(id));
+    data: data.data,
+    columns: data.columns,
+    textColor: data.textColor,
+    openNewWindow: data.openNewWindow
+}), targetElement);
 
 /***/ }),
 /* 85 */
@@ -23888,7 +23900,7 @@ var GridView = function (_Component) {
                 if (gridWidth !== 0) {
                     baseWidth += -2; // Slight amount of wiggle room
                 }
-                console.log(baseWidth);
+                // console.log(baseWidth);
 
                 var textColor = this.props.textColor; // Store text color
 
@@ -24165,8 +24177,8 @@ var Tile = function (_Component) {
                 };
 
                 var descriptionHeight = this.state !== null ? this.state.descriptionHeight : 0;
-                var bottom = -descriptionHeight;
-                // console.log(this.props.id + ': ' + bottom);
+                var bottom = -descriptionHeight - 16;
+                console.log(this.props.id + ': ' + bottom);
                 var tileTextStyle = {
                     color: this.props.textColor,
                     bottom: bottom + 'px'
@@ -24253,7 +24265,7 @@ var Tile = function (_Component) {
                                 _react2['default'].createElement('br', { style: subtitleDescriptionBreak })
                             ),
                             _react2['default'].createElement(
-                                'span',
+                                'div',
                                 { className: 'tile-description', id: this.props.id },
                                 this.props.description
                             ),
@@ -24321,6 +24333,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * License: MIT
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Description: 'Photo-Tile' sub-component
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *              No text content
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *              Zooms on hover - no filter change
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 **************************************************************/
 // Get React modules
@@ -24506,7 +24520,7 @@ exports = module.exports = __webpack_require__(191)(undefined);
 
 
 // module
-exports.push([module.i, "/**************************************************************\n* Name: Kevin Hou\n* License: MIT\n*\n* Description: SCSS styling for tile layout for web.\n*\n* Compile:\n*   sass --watch style.scss:style.css\n**************************************************************/\n.main-grid {\n  width: 100%;\n  overflow: visible; }\n\n@media only screen and (max-width: 600px) {\n  .tile {\n    width: 100% !important;\n    height: 350px !important; } }\n\n.tile {\n  opacity: 0;\n  /******   Content Styling   ******/\n  /******   Container Structure   ******/\n  position: relative;\n  display: inline-block;\n  overflow: hidden;\n  cursor: pointer;\n  margin-top: -4px;\n  background-color: black; }\n  .tile-entrance {\n    animation-name: bigEntrance;\n    -webkit-animation-name: bigEntrance;\n    animation-fill-mode: forwards;\n    -webkit-animation-fill-mode: forwards;\n    animation-duration: 0.5s;\n    -webkit-animation-duration: 0.5s;\n    animation-timing-function: ease-out;\n    -webkit-animation-timing-function: ease-out; }\n  .tile-skip-entrance {\n    opacity: 1; }\n  .tile-text {\n    position: absolute;\n    width: 100%;\n    padding: 2% 5% 0 5%;\n    z-index: 0;\n    background: -moz-linear-gradient(top, transparent 0%, black 100%);\n    /* FF3.6-15 */\n    background: -webkit-linear-gradient(top, transparent 0%, black 100%);\n    /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to bottom, transparent 0%, black 100%);\n    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );\n    /* IE6-9 */\n    color: white;\n    text-shadow: 1px 1px #000000;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-text-hover {\n      bottom: 0% !important;\n      padding: 2% 5% 3% 5%; }\n  .tile-visible-text {\n    margin-bottom: 12px; }\n  .tile-category {\n    padding: 4px 6px 4px 6px;\n    font-size: 10px;\n    border-radius: 2px;\n    display: inline-block;\n    background-color: orange; }\n  .tile-title {\n    font-size: 36px; }\n  .tile-subtitle {\n    font-size: 24px; }\n  .tile-description {\n    font-size: 15px; }\n  .tile-content {\n    width: 100%;\n    height: 100%; }\n  .tile-background {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: -1;\n    width: 100%;\n    height: 100%;\n    filter: brightness(0.9);\n    -webkit-filter: brightness(0.9);\n    opacity: 1;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-background-hover {\n      transform: scale(1.2, 1.2);\n      opacity: 0.5; }\n\n.photo-tile-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  transition: all 0.2s;\n  transition-timing-function: ease-in-out; }\n  .photo-tile-background-hover {\n    transform: scale(1.2, 1.2); }\n\n@keyframes bigEntrance {\n  0% {\n    transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n\n@-webkit-keyframes bigEntrance {\n  0% {\n    -webkit-transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    -webkit-transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    -webkit-transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    -webkit-transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n", ""]);
+exports.push([module.i, "/**************************************************************\n* Name: Kevin Hou\n* License: MIT\n*\n* Description: SCSS styling for tile layout for web.\n*\n* Compile:\n*   sass --watch style.scss:style.css\n**************************************************************/\n.main-grid {\n  width: 100%;\n  overflow: visible; }\n\n@media only screen and (max-width: 600px) {\n  .tile {\n    width: 100% !important;\n    height: 350px !important; } }\n\n.tile {\n  opacity: 0;\n  /******   Content Styling   ******/\n  /******   Container Structure   ******/\n  position: relative;\n  display: inline-block;\n  overflow: hidden;\n  cursor: pointer;\n  margin-top: -4px;\n  background-color: black; }\n  .tile-entrance {\n    animation-name: bigEntrance;\n    -webkit-animation-name: bigEntrance;\n    animation-fill-mode: forwards;\n    -webkit-animation-fill-mode: forwards;\n    animation-duration: 0.5s;\n    -webkit-animation-duration: 0.5s;\n    animation-timing-function: ease-out;\n    -webkit-animation-timing-function: ease-out; }\n  .tile-skip-entrance {\n    opacity: 1; }\n  .tile-text {\n    position: absolute;\n    width: 100%;\n    z-index: 0;\n    background: -moz-linear-gradient(top, transparent 0%, black 100%);\n    /* FF3.6-15 */\n    background: -webkit-linear-gradient(top, transparent 0%, black 100%);\n    /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to bottom, transparent 0%, black 100%);\n    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );\n    /* IE6-9 */\n    color: white;\n    text-shadow: 1px 1px #000000;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-text-hover {\n      bottom: 0% !important;\n      padding-bottom: 12px; }\n  .tile-visible-text {\n    margin-bottom: 12px;\n    margin-left: 12px; }\n  .tile-category {\n    padding: 4px 6px 4px 6px;\n    font-size: 10px;\n    border-radius: 2px;\n    display: inline-block;\n    background-color: orange; }\n  .tile-title {\n    font-size: 36px; }\n  .tile-subtitle {\n    font-size: 24px; }\n  .tile-description {\n    font-size: 15px;\n    margin-left: 12px; }\n  .tile-content {\n    width: 100%;\n    height: 100%; }\n  .tile-background {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: -1;\n    width: 100%;\n    height: 100%;\n    filter: brightness(0.9);\n    -webkit-filter: brightness(0.9);\n    opacity: 1;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-background-hover {\n      transform: scale(1.2, 1.2);\n      opacity: 0.5; }\n\n.photo-tile-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  transition: all 0.2s;\n  transition-timing-function: ease-in-out; }\n  .photo-tile-background-hover {\n    transform: scale(1.2, 1.2); }\n\n@keyframes bigEntrance {\n  0% {\n    transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n\n@-webkit-keyframes bigEntrance {\n  0% {\n    -webkit-transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    -webkit-transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    -webkit-transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    -webkit-transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n", ""]);
 
 // exports
 

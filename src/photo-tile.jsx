@@ -3,6 +3,8 @@
  * License: MIT
  *
  * Description: 'Photo-Tile' sub-component
+ *              No text content
+ *              Zooms on hover - no filter change
  *
  **************************************************************/
 import React, { Component } from 'react'; // Get React modules
