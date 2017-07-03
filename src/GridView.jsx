@@ -5,10 +5,7 @@
  * Description: GridView layout component
  *
  **************************************************************/
-import React, {
-    Component
-}
-from 'react'; // Get React modules
+import React, { Component } from 'react'; // Get React modules
 import PropTypes from 'prop-types'; // Helps with prop organization
 import Tile from './tile.jsx'; // Get sub-component
 
@@ -35,10 +32,10 @@ class GridView extends Component {
 
     // On window resize
     windowResize() {
-        const gridWidth = $('#' + gridID).width() - 1; // Get width of grid
+        const width = document.getElementById(this.props.gridID).width() - 1; // Get width of grid
 
         this.setState({
-            gridWidth: gridWidth,
+            gridWidth: width,
         });
 
         // console.log('Set width to: ' + gridWidth);
@@ -47,11 +44,11 @@ class GridView extends Component {
     // Render the DOM
     render() {
         // Establish standards
-        let baseWidth = this.state.gridWidth * Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
-        if (this.state.gridWidth != 0) {
+        let baseWidth = Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
+        baseWidth *= this.state.gridWidth;
+        if (this.state.gridWidth !== 0) {
             baseWidth += -Math.round(baseWidth / this.state.gridWidth) - 4; // Slight amount of wiggle room
-        }
-        else {
+        } else {
             baseWidth += -8;
         }
 
@@ -59,25 +56,57 @@ class GridView extends Component {
         const newWindow = this.state.newWindow;
 
         let idCount = 0; // Give each tile a unique ID
-        const tileNodes = this.state.data.map(function(tile) {
-            idCount++; // Increment counter
+        const tileNodes = this.state.data.map((tile) => {
+            idCount += 1; // Increment counter
             const numBlocks = tile.size; // Number of blocks to fill
-            const width = baseWidth * numBlocks;
-            const height = baseWidth; // Square tile
+            const tileWidth = baseWidth * numBlocks;
+            const tileHeight = baseWidth; // Square tile
 
             // Size information to pass to child
             const size = {
-                width: width,
-                height: height,
-            }
-            return (<Tile id={'gridTile' + idCount} title={tile.title} subtitle={tile.subtitle} description={tile.description} image={tile.image} link={tile.link} category={tile.category} textColor={textColor} openNewWindow={newWindow} size={size} />);
+                width: tileWidth,
+                height: tileHeight,
+            };
+            return (
+                <Tile
+                    id={`gridTile${idCount}`}
+                    title={tile.title}
+                    subtitle={tile.subtitle}
+                    description={tile.description}
+                    image={tile.image}
+                    link={tile.link}
+                    category={tile.category}
+                    textColor={textColor}
+                    openNewWindow={newWindow}
+                    size={size}
+                />
+            );
         });
         return (
-            <div className='main-grid'>
+            <div className="main-grid">
                 {tileNodes}
             </div>
         );
     }
 }
+
+GridView.propTypes = {
+    gridID: PropTypes.stirng.isRequired,
+    data: {
+        title: PropTypes.string.isRequired,
+        subtitle: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        link: PropTypes.string.isRequired,
+        size: PropTypes.string.isRequired,
+        category: {
+            label: PropTypes.string.isRequired,
+            color: PropTypes.string.isRequired,
+        }.isRequired,
+    }.isRequired,
+    columns: PropTypes.number.isRequired,
+    textColor: PropTypes.string.isRequired,
+    openNewWindow: PropTypes.bool.isRequired,
+};
 
 export default GridView;

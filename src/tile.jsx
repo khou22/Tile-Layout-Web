@@ -110,7 +110,14 @@ class Tile extends Component {
         }
 
         return (
-            <a className={`tile ${entranceAnimation}`} href={this.props.link} style={tileStyle} target={target} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+            <a
+                className={`tile ${entranceAnimation}`}
+                href={this.props.link}
+                style={tileStyle}
+                target={target}
+                onMouseEnter={this.onMouseEnter}
+                onMouseLeave={this.onMouseLeave}
+            >
                 <div className="tile-content">
                     <div className={tileTextClass} style={tileTextStyle}>
                         <div className="tile-category" style={tileCategoryStyle}>{this.props.category.label}</div><br style={categoryTitleBreak} />

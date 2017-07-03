@@ -1,4 +1,5 @@
 const path = require('path');
+
 module.exports = {
   entry: './src/index.jsx',
   target: "node", // In order to ignore built-in modules like path, fs, etc.

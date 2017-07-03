@@ -2564,6 +2564,10 @@ if (process.env.NODE_ENV !== 'production') {
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _GridView = __webpack_require__(21);
 
 var _GridView2 = _interopRequireDefault(_GridView);
@@ -2586,11 +2590,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 *  <script type="text/jsx;harmoney-true" src="tile-layout-library/main.js"></script>
 *
 **************************************************************/
-var gridID = 'grid'; // Grid id
-// Get sub-component
-var mobileCuttoff = 800; // Number of piexels for cuttoff to mobile
-React.render(React.createElement(_GridView2['default'], [data, numColumns, textColor, newWindow]), // React.createElement(type, [props])
-document.getElementById(gridID));
+exports['default'] = _GridView2['default']; // Get sub-component
 
 /***/ }),
 /* 21 */
@@ -2674,10 +2674,10 @@ var GridView = function (_Component) {
         key: 'windowResize',
         value: function () {
             function windowResize() {
-                var gridWidth = $('#' + gridID).width() - 1; // Get width of grid
+                var width = document.getElementById(this.props.gridID).width() - 1; // Get width of grid
 
                 this.setState({
-                    gridWidth: gridWidth
+                    gridWidth: width
                 });
 
                 // console.log('Set width to: ' + gridWidth);
@@ -2693,8 +2693,9 @@ var GridView = function (_Component) {
         value: function () {
             function render() {
                 // Establish standards
-                var baseWidth = this.state.gridWidth * Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
-                if (this.state.gridWidth != 0) {
+                var baseWidth = Math.floor(100 / this.state.numColumns) / 100; // Get percentage width
+                baseWidth *= this.state.gridWidth;
+                if (this.state.gridWidth !== 0) {
                     baseWidth += -Math.round(baseWidth / this.state.gridWidth) - 4; // Slight amount of wiggle room
                 } else {
                     baseWidth += -8;
@@ -2705,17 +2706,28 @@ var GridView = function (_Component) {
 
                 var idCount = 0; // Give each tile a unique ID
                 var tileNodes = this.state.data.map(function (tile) {
-                    idCount++; // Increment counter
+                    idCount += 1; // Increment counter
                     var numBlocks = tile.size; // Number of blocks to fill
-                    var width = baseWidth * numBlocks;
-                    var height = baseWidth; // Square tile
+                    var tileWidth = baseWidth * numBlocks;
+                    var tileHeight = baseWidth; // Square tile
 
                     // Size information to pass to child
                     var size = {
-                        width: width,
-                        height: height
+                        width: tileWidth,
+                        height: tileHeight
                     };
-                    return _react2['default'].createElement(_tile2['default'], { id: 'gridTile' + idCount, title: tile.title, subtitle: tile.subtitle, description: tile.description, image: tile.image, link: tile.link, category: tile.category, textColor: textColor, openNewWindow: newWindow, size: size });
+                    return _react2['default'].createElement(_tile2['default'], {
+                        id: 'gridTile' + idCount,
+                        title: tile.title,
+                        subtitle: tile.subtitle,
+                        description: tile.description,
+                        image: tile.image,
+                        link: tile.link,
+                        category: tile.category,
+                        textColor: textColor,
+                        openNewWindow: newWindow,
+                        size: size
+                    });
                 });
                 return _react2['default'].createElement(
                     'div',
@@ -2730,6 +2742,25 @@ var GridView = function (_Component) {
 
     return GridView;
 }(_react.Component);
+
+GridView.propTypes = {
+    gridID: _propTypes2['default'].stirng.isRequired,
+    data: {
+        title: _propTypes2['default'].string.isRequired,
+        subtitle: _propTypes2['default'].string.isRequired,
+        description: _propTypes2['default'].string.isRequired,
+        image: _propTypes2['default'].string.isRequired,
+        link: _propTypes2['default'].string.isRequired,
+        size: _propTypes2['default'].string.isRequired,
+        category: {
+            label: _propTypes2['default'].string.isRequired,
+            color: _propTypes2['default'].string.isRequired
+        }.isRequired
+    }.isRequired,
+    columns: _propTypes2['default'].number.isRequired,
+    textColor: _propTypes2['default'].string.isRequired,
+    openNewWindow: _propTypes2['default'].bool.isRequired
+};
 
 exports['default'] = GridView;
 
@@ -5000,7 +5031,14 @@ var Tile = function (_Component) {
 
                 return _react2['default'].createElement(
                     'a',
-                    { className: 'tile ' + entranceAnimation, href: this.props.link, style: tileStyle, target: target, onMouseEnter: this.onMouseEnter, onMouseLeave: this.onMouseLeave },
+                    {
+                        className: 'tile ' + entranceAnimation,
+                        href: this.props.link,
+                        style: tileStyle,
+                        target: target,
+                        onMouseEnter: this.onMouseEnter,
+                        onMouseLeave: this.onMouseLeave
+                    },
                     _react2['default'].createElement(
                         'div',
                         { className: 'tile-content' },
