@@ -1,4 +1,7 @@
-# Installation
+# Tile-Layout-Web Library
+### Author: Kevin Hou
+
+## Installation
 1. Install NPM dependencies
 ``` bash
 $ npm install
@@ -13,10 +16,18 @@ $ npm install
 $ open demo/index.html
 ```
 
-# Building
+## Building
+For production
+``` bash
+$ npm run build-prod
+```
 
+For the demo product (watches/rebuilds on file changes)
+``` bash
+$ $ npm run build-demo
+```
 
-# Usage
+## Usage
 1. Write and declare the gridData object variable
 ``` javascript
 // data.js
@@ -42,8 +53,9 @@ var gridData = { // Must name it this
 }
 ```
 
-2. Include in html
-The order is imperative.
+2. Include in HTML
+
+*The order is imperative.*
 ``` html
 <div id='grid' class="main-div"></div>
 <script src="data.js"></script>
