@@ -24178,7 +24178,7 @@ var Tile = function (_Component) {
 
                 var descriptionHeight = this.state !== null ? this.state.descriptionHeight : 0;
                 var bottom = -descriptionHeight - 16;
-                console.log(this.props.id + ': ' + bottom);
+                // console.log(this.props.id + ': ' + bottom);
                 var tileTextStyle = {
                     color: this.props.textColor,
                     bottom: bottom + 'px'
