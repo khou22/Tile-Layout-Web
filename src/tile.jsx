@@ -115,7 +115,8 @@ class Tile extends Component {
                 <div className="tile-content">
                     <div className={tileTextClass} style={tileTextStyle}>
                         <div className="tile-visible-text">
-                            <div className="tile-category" style={tileCategoryStyle}>{this.props.category.label}</div><br style={categoryTitleBreak} />
+                            <div className="tile-category" style={tileCategoryStyle}>{this.props.category.label}</div>
+                            <br style={categoryTitleBreak} />
                             <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak} />
                             <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak} />
                         </div>

@@ -7,24 +7,22 @@
  **************************************************************/
 import React, { Component } from 'react'; // Get React modules
 import PropTypes from 'prop-types'; // Helps with prop organization
-import Tile from './tile.jsx'; // Get sub-component
+import Tile from './tile.jsx'; // Get sub-component for tile with text
+import PhotoTile from './photo-tile.jsx'; // For tiles with just a photo
 
 class GridView extends Component {
     // Establish sizing
     componentDidMount() {
         this.windowResize();
         // Add event listener for resizing
-        window.addEventListener('resize', this.windowResize);
+        window.addEventListener('resize', () => this.windowResize());
     }
 
     // On window resize
     windowResize() {
         setTimeout(() => {
             const width = document.getElementById(this.props.gridID).offsetWidth - 1; // Get width of grid
-
-            this.setState({
-                gridWidth: width,
-            });
+            this.setState({ gridWidth: width });
         }, 1);
     }
 
@@ -36,10 +34,9 @@ class GridView extends Component {
         let baseWidth = Math.floor(100 / this.props.columns) / 100; // Get percentage width
         baseWidth *= gridWidth;
         if (gridWidth !== 0) {
-            baseWidth += -Math.round(baseWidth / gridWidth); // Slight amount of wiggle room
-        } else {
-            baseWidth += -1;
+            baseWidth += -2; // Slight amount of wiggle room
         }
+        console.log(baseWidth);
 
         const textColor = this.props.textColor; // Store text color
 
@@ -55,15 +52,35 @@ class GridView extends Component {
                 width: tileWidth,
                 height: tileHeight,
             };
+            const {
+                title,
+                subtitle,
+                description,
+                image,
+                link,
+                category,
+            } = tile; // Map to individual constants
+            if (!title && !subtitle && !description && !category) {
+                return (
+                    <PhotoTile
+                        id={`gridTile${idCount}`}
+                        key={idCount}
+                        image={image}
+                        link={link}
+                        openNewWindow={this.props.openNewWindow}
+                        size={size}
+                    />
+                );
+            }
             return (
                 <Tile
                     id={`gridTile${idCount}`}
                     key={idCount}
-                    title={tile.title}
-                    subtitle={tile.subtitle}
-                    description={tile.description}
-                    image={tile.image}
-                    link={tile.link}
+                    title={title}
+                    subtitle={subtitle}
+                    description={description}
+                    image={image}
+                    link={link}
                     category={tile.category}
                     textColor={textColor}
                     openNewWindow={this.props.openNewWindow}
@@ -82,16 +99,16 @@ class GridView extends Component {
 GridView.propTypes = {
     gridID: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        subtitle: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
+        title: PropTypes.string,
+        subtitle: PropTypes.string,
+        description: PropTypes.string,
         image: PropTypes.string.isRequired,
         link: PropTypes.string.isRequired,
         size: PropTypes.string.isRequired,
         category: {
-            label: PropTypes.string.isRequired,
-            color: PropTypes.string.isRequired,
-        }.isRequired,
+            label: PropTypes.string,
+            color: PropTypes.string,
+        },
     })).isRequired,
     columns: PropTypes.number.isRequired,
     textColor: PropTypes.string.isRequired,
