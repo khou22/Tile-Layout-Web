@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   entry: './src/index.jsx',
-  target: "node", // In order to ignore built-in modules like path, fs, etc.
+  target: "web", // What type of environment it'll be used in
   output: {
     path: path.join(__dirname, 'demo'),
     filename: 'index_bundle.js',

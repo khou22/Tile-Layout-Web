@@ -9,24 +9,14 @@ import React, { Component } from 'react'; // Get React modules
 import PropTypes from 'prop-types'; // Helps with prop organization
 
 class Tile extends Component {
-    constructor(props) {
-        super(props);
-        this.setState({
-            hover: false,
-            descriptionHeight: 0,
-        });
-    }
-
     componentDidMount() {
-        window.setTimeout(() => {
-            // Get height of description text
+        setTimeout(() => {
             const height = document.getElementById(this.props.id).offsetHeight;
-
             // Save
             this.setState({
                 descriptionHeight: height,
             });
-        }, 1); // Wait for it to load before getting the height
+        }, 10);
     }
 
     // Start hover
@@ -49,6 +39,9 @@ class Tile extends Component {
     }
 
     render() {
+        // Prevent premature loading
+        // if (this.state === null) return <span data-note="Grid not loaded..." />;
+
         const rank = this.getTileRank(); // Get the tile's rank/order
         let delay = (rank * 0.05) + 0.05; // Delay in seconds
         let entranceAnimation = 'tile-entrance'; // Standard entrance animation class
@@ -72,11 +65,12 @@ class Tile extends Component {
             animationDelay: `${delay}s`,
         };
 
-        // console.log(this.props.id + ': ' + this.state.descriptionHeight);
-        const bottom = -this.state.descriptionHeight - 8;
+        const descriptionHeight = (this.state !== null) ? this.state.descriptionHeight : 0;
+        const bottom = -descriptionHeight;
+        // console.log(this.props.id + ': ' + bottom);
         const tileTextStyle = {
             color: this.props.textColor,
-            bottom: `${bottom} px`,
+            bottom: `${bottom}px`,
         };
 
         const tileCategoryStyle = {
@@ -104,7 +98,7 @@ class Tile extends Component {
         let tileTextClass = 'tile-text'; // Tile text
 
         // If hovering
-        if (this.state.hover) {
+        if (this.state !== null && this.state.hover) {
             backgroundClass = `${backgroundClass} tile-background-hover`;
             tileTextClass = `${tileTextClass} tile-text-hover`;
         }
@@ -115,14 +109,16 @@ class Tile extends Component {
                 href={this.props.link}
                 style={tileStyle}
                 target={target}
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
+                onMouseEnter={() => { this.onMouseEnter(); }}
+                onMouseLeave={() => { this.onMouseLeave(); }}
             >
                 <div className="tile-content">
                     <div className={tileTextClass} style={tileTextStyle}>
-                        <div className="tile-category" style={tileCategoryStyle}>{this.props.category.label}</div><br style={categoryTitleBreak} />
-                        <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak} />
-                        <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak} />
+                        <div className="tile-visible-text">
+                            <div className="tile-category" style={tileCategoryStyle}>{this.props.category.label}</div><br style={categoryTitleBreak} />
+                            <span className="tile-title">{this.props.title}</span><br style={tileSubtitleBreak} />
+                            <span className="tile-subtitle">{this.props.subtitle}</span><br style={subtitleDescriptionBreak} />
+                        </div>
                         <span className="tile-description" id={this.props.id}>{this.props.description}</span><br />
                     </div>
                 </div>
@@ -140,13 +136,16 @@ Tile.propTypes = {
     description: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    category: PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        color: PropTypes.string.isRequired,
+    }).isRequired,
     textColor: PropTypes.string.isRequired,
     openNewWindow: PropTypes.bool.isRequired,
-    size: {
+    size: PropTypes.shape({
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
-    }.isRequired,
+    }).isRequired,
 };
 
 export default Tile; // Make available for other files
