@@ -28,9 +28,9 @@ var gridData = {
           }
         },
         {
-          title: "Title 3",
-          subtitle: "Subtitle 3",
-          description: "Description 3",
+          title: "Title",
+          subtitle: "Subtitle",
+          description: "Lorem ipsum dolor sit amet...",
           image: "placeholder.png",
           link: "#",
           size: "1",
