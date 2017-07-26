@@ -24032,7 +24032,7 @@ var GridView = function (_Component) {
 
 GridView.propTypes = {
     gridID: _propTypes2['default'].string.isRequired,
-    modal: _propTypes2['default'].bool.isRequired,
+    modal: _propTypes2['default'].bool,
     data: _propTypes2['default'].arrayOf(_propTypes2['default'].shape({
         title: _propTypes2['default'].string,
         subtitle: _propTypes2['default'].string,

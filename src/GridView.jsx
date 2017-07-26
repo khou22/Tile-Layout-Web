@@ -147,7 +147,7 @@ class GridView extends Component {
 
 GridView.propTypes = {
     gridID: PropTypes.string.isRequired,
-    modal: PropTypes.bool.isRequired,
+    modal: PropTypes.bool,
     data: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
         subtitle: PropTypes.string,
