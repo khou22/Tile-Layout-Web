@@ -1,7 +1,7 @@
 var gridData = {
     columns: 3,
     textColor: "white",
-    modal: false,
+    modal: true,
     openNewWindow: true,
     data: [
         {

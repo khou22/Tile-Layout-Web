@@ -10,6 +10,15 @@ import PropTypes from 'prop-types'; // Helps with prop organization
 
 class PhotoModal extends Component {
 
+    // Pressed image
+    openLink() {
+        if (this.props.openNewWindow) {
+            window.open(this.props.link, '_blank');
+        } else {
+            window.open(this.props.link);
+        }
+    }
+
     // Render the DOM
     render() {
         // Determine if new window
@@ -24,9 +33,7 @@ class PhotoModal extends Component {
                     <a onClick={this.props.closeModal} title="Close" role="Close">X</a>
                 </div>
                 <div className="modal-main">
-                    <a href={this.props.link} target={target} title="Open link">
-                        <img src={this.props.image} className="modal-image" alt="" />
-                    </a>
+                    <img src={this.props.image} className="modal-image" alt="" onClick={() => this.openLink()} />
                 </div>
             </div>
         );

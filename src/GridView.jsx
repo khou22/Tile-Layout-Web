@@ -42,7 +42,6 @@ class GridView extends Component {
     // If user clicks a tile
     clickedTile(data) {
         if (this.props.modal) {
-            console.log('Opening photo modal');
             this.setState({
                 modalOpen: true,
                 selectedPhoto: {
