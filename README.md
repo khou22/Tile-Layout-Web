@@ -71,6 +71,7 @@ For the demo product (watches/rebuilds on file changes): ``` $ npm run build-dem
     ``` javascript
     var gridData = {
         columns: 3,
+        modal: true, // This is unique to photos, it can open a modal with a larger photo
         openNewWindow: true,
         data: [
             {

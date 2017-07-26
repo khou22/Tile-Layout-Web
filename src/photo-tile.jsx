@@ -31,6 +31,15 @@ class PhotoTile extends Component {
         return parseInt(id.replace(/\D/g, ''), 10); // Get integer out of ID
     }
 
+    // User clicked the photo tile
+    clickedTile() {
+        const data = {
+            image: this.props.image,
+            link: this.props.link,
+        };
+        this.props.clickedTile(data);
+    }
+
     render() {
         const rank = this.getTileRank(); // Get the tile's rank/order
         let delay = (rank * 0.05) + 0.05; // Delay in seconds
@@ -72,13 +81,14 @@ class PhotoTile extends Component {
             <a
                 className={`tile ${entranceAnimation}`}
                 id={this.props.id}
-                href={this.props.link}
+                onClick={() => this.clickedTile()}
+                role="link"
+                tabIndex="0"
                 style={tileStyle}
                 target={target}
                 onMouseEnter={() => { this.onMouseEnter(); }}
                 onMouseLeave={() => { this.onMouseLeave(); }}
             >
-
                 <div className={backgroundClass} style={backgroundStyle} />
             </a>
         );
@@ -94,6 +104,7 @@ PhotoTile.propTypes = {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
     }).isRequired,
+    clickedTile: PropTypes.func.isRequired,
 };
 
 export default PhotoTile; // Make available for other files

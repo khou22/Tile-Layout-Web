@@ -9,10 +9,23 @@ import React, { Component } from 'react'; // Get React modules
 import PropTypes from 'prop-types'; // Helps with prop organization
 import Tile from './tile.jsx'; // Get sub-component for tile with text
 import PhotoTile from './photo-tile.jsx'; // For tiles with just a photo
+import PhotoModal from './PhotoModal.jsx'; // On click display the photo larger
 
 class GridView extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     // Establish sizing
     componentDidMount() {
+        this.setState({ // Default states for modal
+            modalOpen: false,
+            selectedPhoto: {
+                image: '',
+                link: '',
+            },
+        });
+
         this.windowResize();
         // Add event listener for resizing
         window.addEventListener('resize', () => this.windowResize());
@@ -24,6 +37,33 @@ class GridView extends Component {
             const width = document.getElementById(this.props.gridID).offsetWidth - 1; // Get width of grid
             this.setState({ gridWidth: width });
         }, 1);
+    }
+
+    // If user clicks a tile
+    clickedTile(data) {
+        if (this.props.modal) {
+            console.log('Opening photo modal');
+            this.setState({
+                modalOpen: true,
+                selectedPhoto: {
+                    image: data.image,
+                    link: data.link,
+                },
+            });
+        } else {
+            if (this.props.openNewWindow) {
+                window.open(data.link, '_blank');
+            } else {
+                window.open(data.link);
+            }
+        }
+    }
+
+    // Close a modal
+    closeModal() {
+        this.setState({
+            modalOpen: false,
+        });
     }
 
     // Render the DOM
@@ -69,6 +109,7 @@ class GridView extends Component {
                         link={link}
                         openNewWindow={this.props.openNewWindow}
                         size={size}
+                        clickedTile={(data) => this.clickedTile(data)}
                     />
                 );
             }
@@ -89,8 +130,17 @@ class GridView extends Component {
             );
         });
         return (
-            <div className="main-grid">
-                {tileNodes}
+            <div>
+                { (this.state && this.state.modalOpen) ? <PhotoModal
+                    image={this.state.selectedPhoto.image}
+                    link={this.state.selectedPhoto.link}
+                    openNewWindow={this.props.openNewWindow}
+                    closeModal={() => this.closeModal()}
+                    /> : ''
+                }
+                <div className="main-grid">
+                    {tileNodes}
+                </div>
             </div>
         );
     }
@@ -98,6 +148,7 @@ class GridView extends Component {
 
 GridView.propTypes = {
     gridID: PropTypes.string.isRequired,
+    modal: PropTypes.bool.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
         subtitle: PropTypes.string,

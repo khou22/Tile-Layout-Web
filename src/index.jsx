@@ -32,6 +32,7 @@ render(
     <GridView
         gridID={id}
         data={data.data}
+        modal={data.modal}
         columns={data.columns}
         textColor={data.textColor}
         openNewWindow={data.openNewWindow}
