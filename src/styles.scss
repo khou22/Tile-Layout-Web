@@ -225,6 +225,11 @@ $mobile-cuttoff: 600px;
 
         text-decoration: none;
     }
+
+    &-close:hover {
+        color: rgb(210, 210, 210); // Slight gray
+        text-decoration: none !important; // No underline
+    }
 }
 
 @keyframes fadeIn {

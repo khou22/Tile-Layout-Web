@@ -352,51 +352,53 @@ var emptyFunction = __webpack_require__(8);
 var warning = emptyFunction;
 
 if (process.env.NODE_ENV !== 'production') {
-  var printWarning = function () {
-    function printWarning(format) {
-      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-
-      var argIndex = 0;
-      var message = 'Warning: ' + format.replace(/%s/g, function () {
-        return args[argIndex++];
-      });
-      if (typeof console !== 'undefined') {
-        console.error(message);
-      }
-      try {
-        // --- Welcome to debugging React ---
-        // This error was thrown as a convenience so that you can use this stack
-        // to find the callsite that caused this warning to fire.
-        throw new Error(message);
-      } catch (x) {}
-    }
-
-    return printWarning;
-  }();
-
-  warning = function () {
-    function warning(condition, format) {
-      if (format === undefined) {
-        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-      }
-
-      if (format.indexOf('Failed Composite propType: ') === 0) {
-        return; // Ignore CompositeComponent proptype check.
-      }
-
-      if (!condition) {
-        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-          args[_key2 - 2] = arguments[_key2];
+  (function () {
+    var printWarning = function () {
+      function printWarning(format) {
+        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
         }
 
-        printWarning.apply(undefined, [format].concat(args));
+        var argIndex = 0;
+        var message = 'Warning: ' + format.replace(/%s/g, function () {
+          return args[argIndex++];
+        });
+        if (typeof console !== 'undefined') {
+          console.error(message);
+        }
+        try {
+          // --- Welcome to debugging React ---
+          // This error was thrown as a convenience so that you can use this stack
+          // to find the callsite that caused this warning to fire.
+          throw new Error(message);
+        } catch (x) {}
       }
-    }
 
-    return warning;
-  }();
+      return printWarning;
+    }();
+
+    warning = function () {
+      function warning(condition, format) {
+        if (format === undefined) {
+          throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+        }
+
+        if (format.indexOf('Failed Composite propType: ') === 0) {
+          return; // Ignore CompositeComponent proptype check.
+        }
+
+        if (!condition) {
+          for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+            args[_key2 - 2] = arguments[_key2];
+          }
+
+          printWarning.apply(undefined, [format].concat(args));
+        }
+      }
+
+      return warning;
+    }();
+  })();
 }
 
 module.exports = warning;
@@ -10102,11 +10104,18 @@ module.exports = traverseAllChildren;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  * @typechecks
  */
@@ -24733,7 +24742,7 @@ exports = module.exports = __webpack_require__(192)(undefined);
 
 
 // module
-exports.push([module.i, "/**************************************************************\n* Name: Kevin Hou\n* License: MIT\n*\n* Description: SCSS styling for tile layout for web.\n*\n* Compile:\n*   sass --watch style.scss:style.css\n**************************************************************/\n.main-grid {\n  width: 100%;\n  overflow: visible; }\n\n@media only screen and (max-width: 600px) {\n  .tile {\n    width: 100% !important;\n    height: 350px !important; } }\n\n.tile {\n  opacity: 0;\n  /******   Content Styling   ******/\n  /******   Container Structure   ******/\n  position: relative;\n  display: inline-block;\n  overflow: hidden;\n  cursor: pointer;\n  outline: none;\n  margin-top: -4px;\n  background-color: black; }\n  .tile-entrance {\n    animation-name: bigEntrance;\n    -webkit-animation-name: bigEntrance;\n    animation-fill-mode: forwards;\n    -webkit-animation-fill-mode: forwards;\n    animation-duration: 0.5s;\n    -webkit-animation-duration: 0.5s;\n    animation-timing-function: ease-out;\n    -webkit-animation-timing-function: ease-out; }\n  .tile-skip-entrance {\n    opacity: 1; }\n  .tile-text {\n    position: absolute;\n    width: 100%;\n    z-index: 0;\n    box-sizing: border-box;\n    background: -moz-linear-gradient(top, transparent 0%, black 100%);\n    /* FF3.6-15 */\n    background: -webkit-linear-gradient(top, transparent 0%, black 100%);\n    /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to bottom, transparent 0%, black 100%);\n    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );\n    /* IE6-9 */\n    color: white;\n    text-shadow: 1px 1px #000000;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-text-hover {\n      bottom: 0% !important;\n      padding-bottom: 12px; }\n  .tile-visible-text {\n    margin-bottom: 12px;\n    margin-left: 12px; }\n  .tile-category {\n    padding: 4px 6px 4px 6px;\n    font-size: 10px;\n    border-radius: 2px;\n    display: inline-block;\n    background-color: orange; }\n  .tile-title {\n    font-size: 36px; }\n  .tile-subtitle {\n    font-size: 24px; }\n  .tile-description {\n    font-size: 15px;\n    margin-left: 12px; }\n  .tile-content {\n    width: 100%;\n    height: 100%; }\n  .tile-background {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: -1;\n    width: 100%;\n    height: 100%;\n    filter: brightness(0.9);\n    -webkit-filter: brightness(0.9);\n    opacity: 1;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-background-hover {\n      transform: scale(1.2, 1.2);\n      opacity: 0.5; }\n\n.photo-tile-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  transition: all 0.2s;\n  transition-timing-function: ease-in-out; }\n  .photo-tile-background-hover {\n    transform: scale(1.2, 1.2); }\n\n.modal-background {\n  width: 100vw;\n  height: 100vh;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 50;\n  background-color: rgba(0, 0, 0, 0.5); }\n\n.modal-main {\n  margin: auto;\n  max-width: 75%;\n  margin-top: 5%;\n  animation: fadeIn 400ms; }\n\n.modal-image {\n  max-width: 100%;\n  max-height: 100%;\n  display: block;\n  margin: auto;\n  cursor: pointer; }\n\n.modal-close {\n  position: fixed;\n  top: 12px;\n  right: 6px;\n  width: 32px;\n  height: 32px;\n  color: white;\n  font-size: 24px;\n  cursor: pointer;\n  text-decoration: none; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; } }\n\n@keyframes bigEntrance {\n  0% {\n    transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n\n@-webkit-keyframes bigEntrance {\n  0% {\n    -webkit-transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    -webkit-transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    -webkit-transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    -webkit-transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n", ""]);
+exports.push([module.i, "/**************************************************************\n* Name: Kevin Hou\n* License: MIT\n*\n* Description: SCSS styling for tile layout for web.\n*\n* Compile:\n*   sass --watch style.scss:style.css\n**************************************************************/\n.main-grid {\n  width: 100%;\n  overflow: visible; }\n\n@media only screen and (max-width: 600px) {\n  .tile {\n    width: 100% !important;\n    height: 350px !important; } }\n\n.tile {\n  opacity: 0;\n  /******   Content Styling   ******/\n  /******   Container Structure   ******/\n  position: relative;\n  display: inline-block;\n  overflow: hidden;\n  cursor: pointer;\n  outline: none;\n  margin-top: -4px;\n  background-color: black; }\n  .tile-entrance {\n    animation-name: bigEntrance;\n    -webkit-animation-name: bigEntrance;\n    animation-fill-mode: forwards;\n    -webkit-animation-fill-mode: forwards;\n    animation-duration: 0.5s;\n    -webkit-animation-duration: 0.5s;\n    animation-timing-function: ease-out;\n    -webkit-animation-timing-function: ease-out; }\n  .tile-skip-entrance {\n    opacity: 1; }\n  .tile-text {\n    position: absolute;\n    width: 100%;\n    z-index: 0;\n    box-sizing: border-box;\n    background: -moz-linear-gradient(top, transparent 0%, black 100%);\n    /* FF3.6-15 */\n    background: -webkit-linear-gradient(top, transparent 0%, black 100%);\n    /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to bottom, transparent 0%, black 100%);\n    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );\n    /* IE6-9 */\n    color: white;\n    text-shadow: 1px 1px #000000;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-text-hover {\n      bottom: 0% !important;\n      padding-bottom: 12px; }\n  .tile-visible-text {\n    margin-bottom: 12px;\n    margin-left: 12px; }\n  .tile-category {\n    padding: 4px 6px 4px 6px;\n    font-size: 10px;\n    border-radius: 2px;\n    display: inline-block;\n    background-color: orange; }\n  .tile-title {\n    font-size: 36px; }\n  .tile-subtitle {\n    font-size: 24px; }\n  .tile-description {\n    font-size: 15px;\n    margin-left: 12px; }\n  .tile-content {\n    width: 100%;\n    height: 100%; }\n  .tile-background {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: -1;\n    width: 100%;\n    height: 100%;\n    filter: brightness(0.9);\n    -webkit-filter: brightness(0.9);\n    opacity: 1;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    transition: all 0.2s;\n    transition-timing-function: ease-in-out; }\n    .tile-background-hover {\n      transform: scale(1.2, 1.2);\n      opacity: 0.5; }\n\n.photo-tile-background {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  transition: all 0.2s;\n  transition-timing-function: ease-in-out; }\n  .photo-tile-background-hover {\n    transform: scale(1.2, 1.2); }\n\n.modal-background {\n  width: 100vw;\n  height: 100vh;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 50;\n  background-color: rgba(0, 0, 0, 0.5); }\n\n.modal-main {\n  margin: auto;\n  max-width: 75%;\n  margin-top: 5%;\n  animation: fadeIn 400ms; }\n\n.modal-image {\n  max-width: 100%;\n  max-height: 100%;\n  display: block;\n  margin: auto;\n  cursor: pointer; }\n\n.modal-close {\n  position: fixed;\n  top: 12px;\n  right: 6px;\n  width: 32px;\n  height: 32px;\n  color: white;\n  font-size: 24px;\n  cursor: pointer;\n  text-decoration: none; }\n\n.modal-close:hover {\n  color: #d2d2d2;\n  text-decoration: none !important; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; } }\n\n@keyframes bigEntrance {\n  0% {\n    transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n\n@-webkit-keyframes bigEntrance {\n  0% {\n    -webkit-transform: scale(0.3) rotate(6deg) translateX(-30%) translateY(30%);\n    opacity: 0.2; }\n  30% {\n    -webkit-transform: scale(1.03) rotate(-2deg) translateX(2%) translateY(-2%);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.98) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  60% {\n    -webkit-transform: scale(1.01) rotate(-1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: scale(0.99) rotate(1deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  90% {\n    -webkit-transform: scale(1.01) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1) rotate(0deg) translateX(0%) translateY(0%);\n    opacity: 1; } }\n", ""]);
 
 // exports
 
