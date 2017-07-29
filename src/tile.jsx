@@ -60,14 +60,13 @@ class Tile extends Component {
         }
 
         const tileStyle = {
-            width: this.props.size.width,
-            height: this.props.size.height,
+            width: this.props.size.width ? this.props.size.width : 0,
+            height: this.props.size.height ? this.props.size.height : 0,
             animationDelay: `${delay}s`,
         };
 
         const descriptionHeight = (this.state !== null) ? this.state.descriptionHeight : 0;
-        const bottom = -descriptionHeight - 16;
-        // console.log(this.props.id + ': ' + bottom);
+        const bottom = -descriptionHeight - 24;
         const tileTextStyle = {
             color: this.props.textColor,
             bottom: `${bottom}px`,

@@ -155,10 +155,10 @@ GridView.propTypes = {
         image: PropTypes.string.isRequired,
         link: PropTypes.string.isRequired,
         size: PropTypes.string.isRequired,
-        category: {
+        category: PropTypes.shape({
             label: PropTypes.string,
             color: PropTypes.string,
-        },
+        }),
     })).isRequired,
     columns: PropTypes.number.isRequired,
     textColor: PropTypes.string.isRequired,
