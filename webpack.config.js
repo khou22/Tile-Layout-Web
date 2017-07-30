@@ -52,14 +52,27 @@ module.exports = {
                     loader: "sass-loader" // Sass to CSS
                 }
             ]
-        }
-        ],
+        },
+        {
+            test: /\.svg/,
+            exclude: /node_modules/,
+            loader: 'raw-loader'
+        }],
         loaders: [
             { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
             { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+          // A common mistake is not stringifying the "production" string.
+          'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
+        })
     ],
     stats: {
         colors: true,

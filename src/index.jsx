@@ -12,7 +12,7 @@
 **************************************************************/
 import React from 'react';
 import { render } from 'react-dom';
-import GridView from './GridView.jsx'; // Get sub-component
+import TileLayoutWeb from './TileLayoutWeb.jsx'; // Get sub-component
 import './styles.scss'; // Import styling
 
 const id = 'grid'; // Grid ID base string
@@ -28,14 +28,17 @@ if (data === null) {
     );
 }
 
-render(
-    <GridView
-        gridID={id}
-        data={data.data}
-        modal={data.modal}
-        columns={data.columns}
-        textColor={data.textColor}
-        openNewWindow={data.openNewWindow}
-    />,
-    targetElement,
-);
+setTimeout(() => {
+    render(
+        <TileLayoutWeb
+            gridID={id}
+            data={data.data}
+            modal={data.modal}
+            columns={data.columns}
+            textColor={data.textColor}
+            openNewWindow={data.openNewWindow}
+            preloadCuttoff={40} // Number of images required to load before rendering entire grid
+        />,
+        targetElement,
+    );
+}, 500); // Wait a bit

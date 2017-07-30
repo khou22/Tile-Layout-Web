@@ -49,7 +49,12 @@ module.exports = {
             loader: "sass-loader" // Sass to CSS
           }
         ]
-      }
+    },
+    {
+        test: /\.svg/,
+        exclude: /node_modules/,
+        loader: 'raw-loader'
+    }
     ],
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },

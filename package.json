@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config --display-error-details",
     "build-demo": "webpack --config demo-webpack.config --display-error-details --progress --watch",
-    "build-prod": "npm run build --optimizer-minimize",
+    "build-prod": "webpack --config webpack.config --display-error-details --progress --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -39,7 +39,18 @@
     "webpack": "^3.0.0"
   },
   "dependencies": {
+    "raw-loader": "^0.5.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
+  },
+  "babel": {
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-react-constant-elements",
+          "transform-react-inline-elements"
+        ]
+      }
+    }
   }
 }
