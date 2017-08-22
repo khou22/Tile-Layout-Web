@@ -45,7 +45,13 @@ class TileLayoutWeb extends Component {
         if (this.state === null) return <span data-note="Component not mounted" />
 
         // Determine if spinner is needed
-        const spinner = !this.state.gridLoaded ? <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} /> : '';
+        const spinner = !this.state.gridLoaded ? (
+            <div className="tile-layout-spinner">
+                <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
+            </div>
+        )
+        :
+        '';
         const {
             gridID,
             data,
