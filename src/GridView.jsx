@@ -42,6 +42,7 @@ class GridView extends Component {
     // If user clicks a tile
     clickedTile(data) {
         if (this.props.modal) {
+            document.body.style.overflow = 'hidden'; // No scrolling
             this.setState({
                 modalOpen: true,
                 selectedPhoto: {
@@ -63,6 +64,7 @@ class GridView extends Component {
         this.setState({
             modalOpen: false,
         });
+        document.body.style.overflow = 'auto'; // Enable scrolling
     }
 
     // Render the DOM

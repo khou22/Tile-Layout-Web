@@ -10,7 +10,7 @@ var gridData = {
           size: "2",
         },
         {
-          image: "placeholder.png",
+          image: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Matterhorn_Riffelsee_2005-06-11.jpg",
           link: "#",
           size: "1",
         },
