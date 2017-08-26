@@ -60,7 +60,7 @@ class PhotoTile extends Component {
 
         const tileStyle = {
             width: this.props.size.width,
-            height: this.props.size.height,
+            paddingTop: this.props.size.height,
             animationDelay: `${delay}s`,
         };
 

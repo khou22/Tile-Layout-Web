@@ -59,10 +59,13 @@ class Tile extends Component {
             target = '_blank';
         }
 
+        const hasLink = (this.props.link && this.props.link !== ''); // Bool to track if link
+
         const tileStyle = {
             width: this.props.size.width ? this.props.size.width : 0,
-            height: this.props.size.height ? this.props.size.height : 0,
+            paddingTop: this.props.size.height ? this.props.size.height : 0,
             animationDelay: `${delay}s`,
+            cursor: hasLink ? 'pointer' : 'default',
         };
 
         const descriptionHeight = (this.state !== null) ? this.state.descriptionHeight : 0;
@@ -105,7 +108,7 @@ class Tile extends Component {
         return (
             <a
                 className={`tile ${entranceAnimation}`}
-                href={this.props.link}
+                href={hasLink ? this.props.link : null}
                 style={tileStyle}
                 target={target}
                 onMouseEnter={() => { this.onMouseEnter(); }}

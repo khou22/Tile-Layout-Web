@@ -8,7 +8,7 @@ var gridData = {
           subtitle: "Subtitle",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dolor neque, rhoncus id rhoncus quis, vestibulum non justo. Morbi condimentum, nisl at vestibulum finibus, velit sem condimentum est, a ullamcorper urna est ut nibh. Cras sagittis, lorem in facilisis congue, ipsum nunc tempus sapien, nec varius velit ante eget nisl.",
           image: "placeholder.png",
-          link: "#",
+          link: "",
           size: "2",
           category: {
             label: "Category",
@@ -20,7 +20,7 @@ var gridData = {
           subtitle: "Subtitle 2",
           description: "Description 2",
           image: "placeholder.png",
-          link: "#",
+          link: "",
           size: "1",
           category: {
             label: "Category",
@@ -28,11 +28,11 @@ var gridData = {
           }
         },
         {
-          title: "Title",
+          title: "Title with link",
           subtitle: "Subtitle",
           description: "Lorem ipsum dolor sit amet...",
           image: "placeholder.png",
-          link: "#",
+            link: "http://khou22.com",
           size: "1",
           category: {
             label: "Category",
@@ -44,7 +44,7 @@ var gridData = {
           subtitle: "Subtitle 4",
           description: "Description 4",
           image: "placeholder.png",
-          link: "#",
+          link: "",
           size: "1",
           category: {
             label: "Category",
@@ -56,7 +56,7 @@ var gridData = {
           subtitle: "Subtitle 5",
           description: "Description 5",
           image: "placeholder.png",
-          link: "#",
+          link: "",
           size: "1",
           category: {
             label: "Category",
@@ -68,7 +68,7 @@ var gridData = {
           subtitle: "Subtitle 6",
           description: "Description 6",
           image: "placeholder.png",
-          link: "#",
+          link: "",
           size: "1",
           category: {
             label: "Category",
@@ -80,7 +80,7 @@ var gridData = {
           subtitle: "Subtitle 7",
           description: "Description 7",
           image: "placeholder.png",
-          link: "#",
+          link: "",
           size: "1",
           category: {
             label: "Category",
@@ -92,7 +92,7 @@ var gridData = {
             subtitle: "Subtitle 8",
             description: "Description 8",
             image: "placeholder.png",
-            link: "#",
+            link: "",
             size: "1",
             category: {
                 label: "Category",

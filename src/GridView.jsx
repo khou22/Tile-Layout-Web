@@ -12,10 +12,6 @@ import PhotoTile from './photo-tile.jsx'; // For tiles with just a photo
 import PhotoModal from './PhotoModal.jsx'; // On click display the photo larger
 
 class GridView extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     // Establish sizing
     componentDidMount() {
         this.setState({ // Default states for modal
@@ -25,18 +21,6 @@ class GridView extends Component {
                 link: '',
             },
         });
-
-        this.windowResize();
-        // Add event listener for resizing
-        window.addEventListener('resize', () => this.windowResize());
-    }
-
-    // On window resize
-    windowResize() {
-        setTimeout(() => {
-            const width = document.getElementById(this.props.gridID).offsetWidth - 1; // Get width of grid
-            this.setState({ gridWidth: width });
-        }, 1);
     }
 
     // If user clicks a tile
@@ -69,15 +53,8 @@ class GridView extends Component {
 
     // Render the DOM
     render() {
-        const gridWidth = (this.state !== null) ? this.state.gridWidth : 0; // Determine grid width
-
         // Establish standards
-        let baseWidth = Math.floor(100 / this.props.columns) / 100; // Get percentage width
-        baseWidth *= gridWidth;
-        if (gridWidth !== 0) {
-            baseWidth += -2; // Slight amount of wiggle room
-        }
-        // console.log(baseWidth);
+        let baseWidth = Math.floor(100 / this.props.columns); // Get percentage width
 
         const textColor = this.props.textColor; // Store text color
 
@@ -85,8 +62,8 @@ class GridView extends Component {
         const tileNodes = this.props.data.map((tile) => {
             idCount += 1; // Increment counter
             const numBlocks = tile.size; // Number of blocks to fill
-            const tileWidth = baseWidth * numBlocks;
-            const tileHeight = baseWidth; // Square tile
+            const tileWidth = `${baseWidth * numBlocks}%`;
+            const tileHeight = `${baseWidth}%`; // Square tile
 
             // Size information to pass to child
             const size = {
