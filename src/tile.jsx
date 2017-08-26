@@ -10,6 +10,11 @@ import PropTypes from 'prop-types'; // Helps with prop organization
 
 class Tile extends Component {
     componentDidMount() {
+        this.updateDiscriptionHeight();
+        window.addEventListener('resize', () => this.updateDiscriptionHeight());
+    }
+
+    updateDiscriptionHeight() {
         setTimeout(() => {
             const height = document.getElementById(this.props.id).offsetHeight;
             // Save

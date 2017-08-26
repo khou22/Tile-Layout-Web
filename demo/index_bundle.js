@@ -24309,16 +24309,30 @@ var Tile = function (_Component) {
             function componentDidMount() {
                 var _this2 = this;
 
+                this.updateDiscriptionHeight();
+                window.addEventListener('resize', function () {
+                    return _this2.updateDiscriptionHeight();
+                });
+            }
+
+            return componentDidMount;
+        }()
+    }, {
+        key: 'updateDiscriptionHeight',
+        value: function () {
+            function updateDiscriptionHeight() {
+                var _this3 = this;
+
                 setTimeout(function () {
-                    var height = document.getElementById(_this2.props.id).offsetHeight;
+                    var height = document.getElementById(_this3.props.id).offsetHeight;
                     // Save
-                    _this2.setState({
+                    _this3.setState({
                         descriptionHeight: height
                     });
                 }, 10);
             }
 
-            return componentDidMount;
+            return updateDiscriptionHeight;
         }()
 
         // Start hover
@@ -24364,7 +24378,7 @@ var Tile = function (_Component) {
         key: 'render',
         value: function () {
             function render() {
-                var _this3 = this;
+                var _this4 = this;
 
                 // Prevent premature loading
                 // if (this.state === null) return <span data-note="Grid not loaded..." />;
@@ -24441,14 +24455,14 @@ var Tile = function (_Component) {
                         target: target,
                         onMouseEnter: function () {
                             function onMouseEnter() {
-                                _this3.onMouseEnter();
+                                _this4.onMouseEnter();
                             }
 
                             return onMouseEnter;
                         }(),
                         onMouseLeave: function () {
                             function onMouseLeave() {
-                                _this3.onMouseLeave();
+                                _this4.onMouseLeave();
                             }
 
                             return onMouseLeave;
