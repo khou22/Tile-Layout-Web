@@ -12,6 +12,9 @@ class PhotoModal extends Component {
 
     // Pressed image
     openLink() {
+        const hasLink = (this.props.link && this.props.link !== ''); // Bool to track if link
+        if (!hasLink) return; // Don't open anything
+
         if (this.props.openNewWindow) {
             window.open(this.props.link, '_blank');
         } else {

@@ -24642,16 +24642,11 @@ var PhotoTile = function (_Component) {
                     entranceAnimation = 'tile-skip-entrance'; // Skip the animation
                 }
 
-                // Setup if opening in new window
-                var target = '';
-                if (this.props.openNewWindow) {
-                    target = '_blank';
-                }
-
                 var tileStyle = {
                     width: this.props.size.width,
                     paddingTop: this.props.size.height,
-                    animationDelay: delay + 's'
+                    animationDelay: delay + 's',
+                    cursor: 'pointer'
                 };
 
                 // Background image
@@ -24682,7 +24677,6 @@ var PhotoTile = function (_Component) {
                         role: 'link',
                         tabIndex: '0',
                         style: tileStyle,
-                        target: target,
                         onMouseEnter: function () {
                             function onMouseEnter() {
                                 _this2.onMouseEnter();
@@ -24775,6 +24769,9 @@ var PhotoModal = function (_Component) {
         // Pressed image
         value: function () {
             function openLink() {
+                var hasLink = this.props.link && this.props.link !== ''; // Bool to track if link
+                if (!hasLink) return; // Don't open anything
+
                 if (this.props.openNewWindow) {
                     window.open(this.props.link, '_blank');
                 } else {

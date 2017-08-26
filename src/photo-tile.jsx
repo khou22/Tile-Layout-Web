@@ -52,16 +52,11 @@ class PhotoTile extends Component {
             entranceAnimation = 'tile-skip-entrance'; // Skip the animation
         }
 
-        // Setup if opening in new window
-        let target = '';
-        if (this.props.openNewWindow) {
-            target = '_blank';
-        }
-
         const tileStyle = {
             width: this.props.size.width,
             paddingTop: this.props.size.height,
             animationDelay: `${delay}s`,
+            cursor: 'pointer',
         };
 
         // Background image
@@ -85,7 +80,6 @@ class PhotoTile extends Component {
                 role="link"
                 tabIndex="0"
                 style={tileStyle}
-                target={target}
                 onMouseEnter={() => { this.onMouseEnter(); }}
                 onMouseLeave={() => { this.onMouseLeave(); }}
             >
