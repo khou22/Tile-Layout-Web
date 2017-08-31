@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 const path = require('path');
 module.exports = {
   entry: './src/index.jsx',
@@ -9,6 +10,7 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
+    devtool: 'inline-source-map',
   module: {
     rules: [
       {

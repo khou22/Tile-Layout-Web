@@ -3,6 +3,7 @@
  * License: MIT
  *
  * Description: TileLayoutWeb component
+ *              Will handle lazy loading/pagination
  *
  **************************************************************/
 import React, { Component } from 'react'; // Get React modules
@@ -12,46 +13,72 @@ import loadingSpinner from './loading-spinner.min.svg';
 
 class TileLayoutWeb extends Component {
     componentDidMount() {
+        const lazyLoadSize = this.props.columns * 5;
         this.setState({
             gridLoaded: false, // Starts not rendered
             imagesLoaded: 0, // Counter for number of images loaded
-        });
-        this.props.data.forEach((tile) => {
-            const img = new Image();
-            img.src = tile.image;
-            img.onload = (() => this.loadedImage(true));
-            img.onerror = (() => this.loadedImage(false));
-        });
+            paginationSize: Math.min(lazyLoadSize, this.props.data.length), // Load x images at a time
+            loadUntilIndex: Math.min(lazyLoadSize * 2, this.props.data.length), // Initially load the first two pages
+            activeTiles: this.props.data.slice(0, lazyLoadSize), // Only load first page
+            loaded: Array(this.props.data.length).fill(false), // Track which are loaded
+        }, () => {
+            this.loadActive();
+        }); 
     }
 
-    loadedImage(success) {
-        const newCount = this.state.imagesLoaded + 1;
-        let cuttoffToLoad = this.props.preloadCuttoff; // Number of images required to render before all tiles render
-        if (this.props.data.length < cuttoffToLoad) cuttoffToLoad = this.props.data.length;
-        if (newCount >= cuttoffToLoad) {
-            this.setState({
-                gridLoaded: true,
-            });
-        } else {
-            this.setState({
-                imagesLoaded: newCount,
-            });
-        }
+    loadActive() {
+        // Determine where to start so don't load the same images
+        let start = 0;
+        for (let index = 0; index < this.state.loaded.length; index++) {
+            const loaded = this.state.loaded[index];
+            console.log(`Image: ${index} is ${loaded}`);
+            if (!loaded) {
+                start = index;
+                break;
+            }
+        };
+
+        console.log(`Loading images from ${start} to ${this.state.loadUntilIndex}`);
+
+        for (let i = 0; i < this.state.loadUntilIndex; i++) {
+            const tile = this.props.data[i]; // Load from the master data object
+            const img = new Image();
+            img.src = tile.image;
+            img.onload = (() => this.loadedImage(i));
+            img.onerror = (() => this.loadedImage(i));
+        };
+    }
+
+    loadedImage(key) {
+        const updatedLoaded = { ...this.state.loaded };
+        updatedLoaded[key] = true; // Loaded
+        this.setState({
+            loaded: updatedLoaded,
+        }); // Update state
+    }
+
+    loadNextPage() {
+        console.log('Loading next page');
+        let newEnd = this.state.loadUntilIndex;
+        let newLoadEnd = this.state.loadUntilIndex + this.state.paginationSize; // Increment
+
+        // Check limits
+        if (this.props.data.length < newEnd) newEnd = this.props.data.length;
+        if (this.props.data.length < newLoadEnd) newLoadEnd = this.props.data.length;
+
+        this.setState({
+            activeTiles: this.props.data.slice(0, newEnd),
+            loadUntilIndex: newLoadEnd,
+        }, () => {
+            this.loadActive(); // Begin loading next page
+        });
     }
 
     // Render the DOM
     render() {
         // If component isn't mounted yet, return empty
         if (this.state === null) return <span data-note="Component not mounted" />
-
-        // Determine if spinner is needed
-        const spinner = !this.state.gridLoaded ? (
-            <div className="tile-layout-spinner">
-                <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
-            </div>
-        )
-        :
-        '';
+    
         const {
             gridID,
             data,
@@ -62,15 +89,15 @@ class TileLayoutWeb extends Component {
         } = this.props;
         return (
             <div>
-                {spinner}
                 <GridView
                     gridID={gridID}
-                    data={data}
+                    data={this.state.activeTiles}
                     modal={modal}
                     columns={columns}
                     textColor={textColor}
                     openNewWindow={openNewWindow}
                 />
+                <button onClick={() => this.loadNextPage()}>Load More</button>
             </div>
         );
     }
