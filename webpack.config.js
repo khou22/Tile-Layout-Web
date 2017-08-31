@@ -29,7 +29,8 @@ module.exports = {
             loader: "babel-loader", // JSX to JS
             options: {
                 presets: ['airbnb']
-            }
+            },
+            exclude: [/node_modules\/react-waypoint/]
         },
         {
             test: /\.css$/,
@@ -59,8 +60,8 @@ module.exports = {
             loader: 'raw-loader'
         }],
         loaders: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules\/react-waypoint/ },
+            { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules\/react-waypoint/ }
         ]
     },
     plugins: [
