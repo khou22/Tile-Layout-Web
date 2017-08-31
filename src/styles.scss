@@ -13,8 +13,13 @@ $animation-duration: .2s;
 $mobile-cuttoff: 600px;
 
 .tile-layout-spinner {
-    width: 200px;
-    margin: auto;
+    width: 50px;
+    margin: 25px auto;
+
+    svg {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 .main-grid {

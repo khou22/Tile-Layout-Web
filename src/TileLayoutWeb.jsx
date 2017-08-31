@@ -8,8 +8,9 @@
  **************************************************************/
 import React, { Component } from 'react'; // Get React modules
 import PropTypes from 'prop-types'; // Helps with prop organization
-import GridView from './GridView.jsx';
-import loadingSpinner from './loading-spinner.min.svg';
+const Waypoint = require('react-waypoint'); // Execute function when scroll to element
+import GridView from './GridView.jsx'; // Get main grid view
+import loadingSpinner from './loading-spinner.min.svg'; // Loading spinner
 
 class TileLayoutWeb extends Component {
     componentDidMount() {
@@ -21,46 +22,71 @@ class TileLayoutWeb extends Component {
             loadStart: 0, // Start at the beginning
             loadEnd: Math.min(lazyLoadSize * 2, this.props.data.length), // Initially load the first two pages
             activeTiles: this.props.data.slice(0, lazyLoadSize), // Only load first page
+            onWaypoint: false, // Whether user is viewing the cuttoff point
         }, () => {
             this.loadActive();
         }); 
     }
 
     loadActive() {
-        console.log(`Loading images from ${this.state.loadStart} to ${this.state.loadEnd}`);
-
         for (let i = this.state.loadStart; i < this.state.loadEnd; i++) {
             const tile = this.props.data[i]; // Load from the master data object
             const img = new Image();
             img.src = tile.image;
-            // img.onload = (() => this.loadedImage(i)); // On load event
+            img.onload = (() => this.loadedImage()); // On load event
             img.onerror = (() => this.loadFailed(i)); // Image failed to load
         };
     }
 
-    loadFailed(index) {
-        console.log(`${index} failed to load`);
-        console.log(this.props.data[index]);
-
-        // TODO: Remove any failed images from the master array and repopulate the grid
+    loadedImage() {
+        const count = this.state.imagesLoaded; // Store old value
+        this.setState({ imagesLoaded: count + 1 }, () => { this.checkCount() }); // Increment
     }
 
-    loadNextPage() {
-        console.log('Loading next page');
-        let newStart = this.state.loadEnd; // First index not on page
-        let newLoadEnd = this.state.loadEnd + this.state.paginationSize; // Increment
+    loadFailed(index) {
+        console.log(`Image #${index + 1} failed to load`);
+        
+        const count = this.state.imagesLoaded; // Store old value
+        this.setState({ imagesLoaded: count + 1 }, () => { this.checkCount() }); // Increment
+    }
 
-        // Check limits
-        if (this.props.data.length < newStart) newStart = this.props.data.length;
-        if (this.props.data.length < newLoadEnd) newLoadEnd = this.props.data.length;
+    // Check whether to programatically load next page
+    checkCount() {
+        if (this.state.imagesLoaded === this.state.loadEnd && this.state.onWaypoint) {
+            this.loadNextPage();
+        }
+    }
 
+    onWaypoint() {
         this.setState({
-            activeTiles: this.props.data.slice(0, newStart),
-            loadStart: newStart,
-            loadEnd: newLoadEnd,
-        }, () => {
-            this.loadActive(); // Begin loading next page
+            onWaypoint: true,
         });
+        this.loadNextPage(); // Load next page if on waypoint
+    }
+
+    offWaypoint() {
+        this.setState({
+            onWaypoint: false,
+        });
+    }
+
+    loadNextPage() { 
+        if (this.state.imagesLoaded === this.state.loadEnd) { // Next page isn't loaded yet
+            let newStart = this.state.loadEnd; // First index not on page
+            let newLoadEnd = this.state.loadEnd + this.state.paginationSize; // Increment
+
+            // Check limits
+            if (this.props.data.length < newStart) newStart = this.props.data.length;
+            if (this.props.data.length < newLoadEnd) newLoadEnd = this.props.data.length;
+
+            this.setState({
+                activeTiles: this.props.data.slice(0, newStart),
+                loadStart: newStart,
+                loadEnd: newLoadEnd,
+            }, () => {
+                this.loadActive(); // Begin loading next page
+            });
+        }
     }
 
     // Render the DOM
@@ -86,7 +112,11 @@ class TileLayoutWeb extends Component {
                     textColor={textColor}
                     openNewWindow={openNewWindow}
                 />
-                <button onClick={() => this.loadNextPage()}>Load More</button>
+                <Waypoint onEnter={() => this.onWaypoint()} onLeave={() => this.offWaypoint()}>
+                    <div className="tile-layout-spinner">
+                        <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
+                    </div>
+                </Waypoint>
             </div>
         );
     }
