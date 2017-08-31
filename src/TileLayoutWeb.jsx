@@ -18,57 +18,46 @@ class TileLayoutWeb extends Component {
             gridLoaded: false, // Starts not rendered
             imagesLoaded: 0, // Counter for number of images loaded
             paginationSize: Math.min(lazyLoadSize, this.props.data.length), // Load x images at a time
-            loadUntilIndex: Math.min(lazyLoadSize * 2, this.props.data.length), // Initially load the first two pages
+            loadStart: 0, // Start at the beginning
+            loadEnd: Math.min(lazyLoadSize * 2, this.props.data.length), // Initially load the first two pages
             activeTiles: this.props.data.slice(0, lazyLoadSize), // Only load first page
-            loaded: Array(this.props.data.length).fill(false), // Track which are loaded
         }, () => {
             this.loadActive();
         }); 
     }
 
     loadActive() {
-        // Determine where to start so don't load the same images
-        let start = 0;
-        for (let index = 0; index < this.state.loaded.length; index++) {
-            const loaded = this.state.loaded[index];
-            console.log(`Image: ${index} is ${loaded}`);
-            if (!loaded) {
-                start = index;
-                break;
-            }
-        };
+        console.log(`Loading images from ${this.state.loadStart} to ${this.state.loadEnd}`);
 
-        console.log(`Loading images from ${start} to ${this.state.loadUntilIndex}`);
-
-        for (let i = 0; i < this.state.loadUntilIndex; i++) {
+        for (let i = this.state.loadStart; i < this.state.loadEnd; i++) {
             const tile = this.props.data[i]; // Load from the master data object
             const img = new Image();
             img.src = tile.image;
-            img.onload = (() => this.loadedImage(i));
-            img.onerror = (() => this.loadedImage(i));
+            // img.onload = (() => this.loadedImage(i)); // On load event
+            img.onerror = (() => this.loadFailed(i)); // Image failed to load
         };
     }
 
-    loadedImage(key) {
-        const updatedLoaded = { ...this.state.loaded };
-        updatedLoaded[key] = true; // Loaded
-        this.setState({
-            loaded: updatedLoaded,
-        }); // Update state
+    loadFailed(index) {
+        console.log(`${index} failed to load`);
+        console.log(this.props.data[index]);
+
+        // TODO: Remove any failed images from the master array and repopulate the grid
     }
 
     loadNextPage() {
         console.log('Loading next page');
-        let newEnd = this.state.loadUntilIndex;
-        let newLoadEnd = this.state.loadUntilIndex + this.state.paginationSize; // Increment
+        let newStart = this.state.loadEnd; // First index not on page
+        let newLoadEnd = this.state.loadEnd + this.state.paginationSize; // Increment
 
         // Check limits
-        if (this.props.data.length < newEnd) newEnd = this.props.data.length;
+        if (this.props.data.length < newStart) newStart = this.props.data.length;
         if (this.props.data.length < newLoadEnd) newLoadEnd = this.props.data.length;
 
         this.setState({
-            activeTiles: this.props.data.slice(0, newEnd),
-            loadUntilIndex: newLoadEnd,
+            activeTiles: this.props.data.slice(0, newStart),
+            loadStart: newStart,
+            loadEnd: newLoadEnd,
         }, () => {
             this.loadActive(); // Begin loading next page
         });
