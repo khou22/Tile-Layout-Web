@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 const path = require('path');
 module.exports = {
   entry: './src/index.jsx',
@@ -9,6 +10,7 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
+    devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -26,7 +28,8 @@ module.exports = {
         loader: "babel-loader", // JSX to JS
         options: {
           presets: ['airbnb']
-        }
+        },
+          exclude: [/node_modules\/react-waypoint/]
       },
       {
         test: /\.css$/,
@@ -57,8 +60,8 @@ module.exports = {
     }
     ],
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules\/react-waypoint/ },
+      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules\/react-waypoint/ }
     ]
   },
   stats: {

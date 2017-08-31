@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     entry: './src/index.jsx',
     target: "web", // What type of environment it'll be used in
     output: {
