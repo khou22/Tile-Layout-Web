@@ -3,38 +3,88 @@
  * License: MIT
  *
  * Description: TileLayoutWeb component
+ *              Will handle lazy loading/pagination
  *
  **************************************************************/
 import React, { Component } from 'react'; // Get React modules
 import PropTypes from 'prop-types'; // Helps with prop organization
-import GridView from './GridView.jsx';
-import loadingSpinner from './loading-spinner.min.svg';
+const Waypoint = require('react-waypoint'); // Execute function when scroll to element
+import GridView from './GridView.jsx'; // Get main grid view
+import loadingSpinner from './loading-spinner.min.svg'; // Loading spinner
 
 class TileLayoutWeb extends Component {
     componentDidMount() {
+        const lazyLoadSize = this.props.columns * 5;
         this.setState({
             gridLoaded: false, // Starts not rendered
             imagesLoaded: 0, // Counter for number of images loaded
-        });
-        this.props.data.forEach((tile) => {
+            paginationSize: Math.min(lazyLoadSize, this.props.data.length), // Load x images at a time
+            loadStart: 0, // Start at the beginning
+            loadEnd: Math.min(lazyLoadSize * 2, this.props.data.length), // Initially load the first two pages
+            activeTiles: this.props.data.slice(0, lazyLoadSize), // Only load first page
+            onWaypoint: false, // Whether user is viewing the cuttoff point
+        }, () => {
+            this.loadActive();
+        }); 
+    }
+
+    loadActive() {
+        for (let i = this.state.loadStart; i < this.state.loadEnd; i++) {
+            const tile = this.props.data[i]; // Load from the master data object
             const img = new Image();
             img.src = tile.image;
-            img.onload = (() => this.loadedImage(true));
-            img.onerror = (() => this.loadedImage(false));
+            img.onload = (() => this.loadedImage()); // On load event
+            img.onerror = (() => this.loadFailed(i)); // Image failed to load
+        };
+    }
+
+    loadedImage() {
+        const count = this.state.imagesLoaded; // Store old value
+        this.setState({ imagesLoaded: count + 1 }, () => { this.checkCount() }); // Increment
+    }
+
+    loadFailed(index) {
+        console.log(`Image #${index + 1} failed to load`);
+        
+        const count = this.state.imagesLoaded; // Store old value
+        this.setState({ imagesLoaded: count + 1 }, () => { this.checkCount() }); // Increment
+    }
+
+    // Check whether to programatically load next page
+    checkCount() {
+        if (this.state.imagesLoaded === this.state.loadEnd && this.state.onWaypoint) {
+            this.loadNextPage();
+        }
+    }
+
+    onWaypoint() {
+        this.setState({
+            onWaypoint: true,
+        });
+        this.loadNextPage(); // Load next page if on waypoint
+    }
+
+    offWaypoint() {
+        this.setState({
+            onWaypoint: false,
         });
     }
 
-    loadedImage(success) {
-        const newCount = this.state.imagesLoaded + 1;
-        let cuttoffToLoad = this.props.preloadCuttoff; // Number of images required to render before all tiles render
-        if (this.props.data.length < cuttoffToLoad) cuttoffToLoad = this.props.data.length;
-        if (newCount >= cuttoffToLoad) {
+    loadNextPage() { 
+        if (this.state.imagesLoaded === this.state.loadEnd) { // Next page isn't loaded yet
+            let newStart = this.state.loadEnd; // First index not on page
+            let newLoadEnd = this.state.loadEnd + this.state.paginationSize; // Increment
+
+            // Check limits
+            if (this.props.data.length < newStart) newStart = this.props.data.length;
+            if (this.props.data.length < newLoadEnd) newLoadEnd = this.props.data.length;
+
             this.setState({
-                gridLoaded: true,
-            });
-        } else {
-            this.setState({
-                imagesLoaded: newCount,
+                activeTiles: this.props.data.slice(0, newStart),
+                loadStart: newStart,
+                loadEnd: newLoadEnd,
+            }, () => {
+                this.loadActive(); // Begin loading next page
             });
         }
     }
@@ -43,15 +93,7 @@ class TileLayoutWeb extends Component {
     render() {
         // If component isn't mounted yet, return empty
         if (this.state === null) return <span data-note="Component not mounted" />
-
-        // Determine if spinner is needed
-        const spinner = !this.state.gridLoaded ? (
-            <div className="tile-layout-spinner">
-                <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
-            </div>
-        )
-        :
-        '';
+    
         const {
             gridID,
             data,
@@ -62,15 +104,19 @@ class TileLayoutWeb extends Component {
         } = this.props;
         return (
             <div>
-                {spinner}
                 <GridView
                     gridID={gridID}
-                    data={data}
+                    data={this.state.activeTiles}
                     modal={modal}
                     columns={columns}
                     textColor={textColor}
                     openNewWindow={openNewWindow}
                 />
+                <Waypoint onEnter={() => this.onWaypoint()} onLeave={() => this.offWaypoint()}>
+                    <div className="tile-layout-spinner">
+                        <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
+                    </div>
+                </Waypoint>
             </div>
         );
     }

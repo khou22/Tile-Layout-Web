@@ -81,6 +81,7 @@ class GridView extends Component {
             if (!title && !subtitle && !description && !category) {
                 return (
                     <PhotoTile
+                        key={idCount}
                         id={`gridTile${idCount}`}
                         key={idCount}
                         image={image}
@@ -93,6 +94,7 @@ class GridView extends Component {
             }
             return (
                 <Tile
+                    key={idCount}
                     id={`gridTile${idCount}`}
                     key={idCount}
                     title={title}
