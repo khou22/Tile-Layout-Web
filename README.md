@@ -2,7 +2,7 @@
 ### Author: Kevin Hou
 #### Description:
 
-A useful grid view for both static and dynamic websites. For tiles with text, there is a title, subtitle, description, and category (label and color). When the user hovers over the tile, the display will darken and the description will slide up. For tiles that do not rely on text (referred to as Photo Tiles), it will zoom the image in the tile. Here are two examples:
+A useful grid view for both static and dynamic websites. For tiles with text, there is a title, subtitle, description, and category (label and color). When the user hovers over the tile, the display will darken and the description will slide up. For tiles that do not rely on text (referred to as Photo Tiles), it will zoom the image in the tile. If you click on a photo tile, it will display a modal — like a gallery. There is also lazy loading so no images should appear black while the content loads. This is especially useful for pages with hundreds of tiles. Here are two examples of the hovering animation:
 
 **Tile**<br>
 <img src="tile-demo.gif" width="250" />
