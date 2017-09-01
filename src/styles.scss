@@ -10,7 +10,7 @@
 
 $primary-color: white;
 $animation-duration: .2s;
-$mobile-cuttoff: 600px;
+$mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
 
 .tile-layout-spinner {
     width: 50px;
@@ -189,6 +189,15 @@ $mobile-cuttoff: 600px;
 
 .modal {
     &-background {
+        // For positioning
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        // Give left and right margin
+        padding: 0 12px;
+        box-sizing: border-box;
+
         // Sizing
         width: 100vw;
         height: 100vh;
@@ -203,10 +212,10 @@ $mobile-cuttoff: 600px;
     }
 
     &-main {
+        display: flex; // To help with center alignment
         margin: auto;
         max-width: 85%;
         height: 85%;
-        margin-top: 5%;
 
         animation: fadeIn 400ms;
     }
@@ -220,6 +229,22 @@ $mobile-cuttoff: 600px;
         display: block;
         margin: auto;
         cursor: pointer;
+    }
+
+    &-arrow {
+        width: 30px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0); 
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        &-hide {
+            opacity: 0;
+            pointer-events: none; // Don't allow clicking
+        }
     }
 
     // X arrow in top right corner
@@ -240,6 +265,11 @@ $mobile-cuttoff: 600px;
     &-close:hover {
         color: rgb(210, 210, 210); // Slight gray
         text-decoration: none !important; // No underline
+    }
+
+    @media only screen and (max-width: $mobile-cuttoff) {
+        &-main {
+        }
     }
 }
 

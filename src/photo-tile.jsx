@@ -37,7 +37,7 @@ class PhotoTile extends Component {
             image: this.props.image,
             link: this.props.link,
         };
-        this.props.clickedTile(data);
+        this.props.clickedTile(data, this.props.index);
     }
 
     render() {
@@ -91,6 +91,7 @@ class PhotoTile extends Component {
 
 PhotoTile.propTypes = {
     id: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     openNewWindow: PropTypes.bool.isRequired,

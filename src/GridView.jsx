@@ -17,6 +17,7 @@ class GridView extends Component {
         this.setState({ // Default states for modal
             modalOpen: false,
             selectedPhoto: {
+                index: 0,
                 image: '',
                 link: '',
             },
@@ -24,12 +25,15 @@ class GridView extends Component {
     }
 
     // If user clicks a tile
-    clickedTile(data) {
+    clickedTile(data, id) {
         if (this.props.modal) {
             document.body.style.overflow = 'hidden'; // No scrolling
+            if (document.body.clientWidth > 500) document.body.style.marginRight = '17px'; // So there's no shifting with the scroll bar on desktop
+
             this.setState({
                 modalOpen: true,
                 selectedPhoto: {
+                    index: id,
                     image: data.image,
                     link: data.link,
                 },
@@ -43,12 +47,25 @@ class GridView extends Component {
         }
     }
 
+    updateModal(left) {
+        const newID = left ? this.state.selectedPhoto.index - 1 : this.state.selectedPhoto.index + 1;
+        if (this.props.data.length - newID < 3) this.props.forceLoad(); // If about to extend over, load the next page
+        this.setState({
+            selectedPhoto: {
+                index: newID,
+                image: this.props.data[newID].image,
+                link: this.props.data[newID].link,
+            },
+        });
+    }
+
     // Close a modal
     closeModal() {
         this.setState({
             modalOpen: false,
         });
         document.body.style.overflow = 'auto'; // Enable scrolling
+        document.body.style.marginRight = 'auto'; // Reset
     }
 
     // Render the DOM
@@ -81,20 +98,19 @@ class GridView extends Component {
             if (!title && !subtitle && !description && !category) {
                 return (
                     <PhotoTile
-                        key={idCount}
+                        index={idCount - 1}
                         id={`gridTile${idCount}`}
                         key={idCount}
                         image={image}
                         link={link}
                         openNewWindow={this.props.openNewWindow}
                         size={size}
-                        clickedTile={(data) => this.clickedTile(data)}
+                        clickedTile={(data, index) => this.clickedTile(data, index)}
                     />
                 );
             }
             return (
                 <Tile
-                    key={idCount}
                     id={`gridTile${idCount}`}
                     key={idCount}
                     title={title}
@@ -114,8 +130,11 @@ class GridView extends Component {
                 { (this.state && this.state.modalOpen) ? <PhotoModal
                     image={this.state.selectedPhoto.image}
                     link={this.state.selectedPhoto.link}
+                    left={this.state.selectedPhoto.index !== 0}
+                    right={this.state.selectedPhoto.index !== this.props.data.length - 1}
                     openNewWindow={this.props.openNewWindow}
                     closeModal={() => this.closeModal()}
+                    updateModal={(left) => this.updateModal(left)}
                     /> : ''
                 }
                 <div className="main-grid">
@@ -144,6 +163,7 @@ GridView.propTypes = {
     columns: PropTypes.number.isRequired,
     textColor: PropTypes.string.isRequired,
     openNewWindow: PropTypes.bool.isRequired,
+    forceLoad: PropTypes.func.isRequired,
 };
 
 export default GridView;

@@ -111,6 +111,7 @@ class TileLayoutWeb extends Component {
                     columns={columns}
                     textColor={textColor}
                     openNewWindow={openNewWindow}
+                    forceLoad={() => this.loadNextPage()}
                 />
                 <Waypoint onEnter={() => this.onWaypoint()} onLeave={() => this.offWaypoint()}>
                     <div className="tile-layout-spinner">
