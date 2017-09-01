@@ -114,9 +114,12 @@ class TileLayoutWeb extends Component {
                     forceLoad={() => this.loadNextPage()}
                 />
                 <Waypoint onEnter={() => this.onWaypoint()} onLeave={() => this.offWaypoint()}>
-                    <div className="tile-layout-spinner">
-                        <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
-                    </div>
+                    { this.props.data.length > this.state.activeTiles.length ? (
+                        <div className="tile-layout-spinner">
+                            <span dangerouslySetInnerHTML={{ __html: loadingSpinner }} />
+                        </div>
+                    ) : null
+                    }
                 </Waypoint>
             </div>
         );
