@@ -25,10 +25,11 @@ class TileLayoutWeb extends Component {
             onWaypoint: false, // Whether user is viewing the cuttoff point
         }, () => {
             this.loadActive();
-        }); 
+        });
     }
 
     loadActive() {
+        // console.log(`Loading from ${this.state.loadStart} to ${this.state.loadEnd}`);
         for (let i = this.state.loadStart; i < this.state.loadEnd; i++) {
             const tile = this.props.data[i]; // Load from the master data object
             const img = new Image();
@@ -40,12 +41,12 @@ class TileLayoutWeb extends Component {
 
     loadedImage() {
         const count = this.state.imagesLoaded; // Store old value
+        // console.log(`Loaded image. Count: ${count}`);
         this.setState({ imagesLoaded: count + 1 }, () => { this.checkCount() }); // Increment
     }
 
     loadFailed(index) {
-        console.log(`Image #${index + 1} failed to load`);
-        
+        // console.log(`Image #${index + 1} failed to load`);
         const count = this.state.imagesLoaded; // Store old value
         this.setState({ imagesLoaded: count + 1 }, () => { this.checkCount() }); // Increment
     }
@@ -70,7 +71,7 @@ class TileLayoutWeb extends Component {
         });
     }
 
-    loadNextPage() { 
+    loadNextPage() {
         if (this.state.imagesLoaded === this.state.loadEnd) { // Next page isn't loaded yet
             let newStart = this.state.loadEnd; // First index not on page
             let newLoadEnd = this.state.loadEnd + this.state.paginationSize; // Increment
@@ -93,7 +94,7 @@ class TileLayoutWeb extends Component {
     render() {
         // If component isn't mounted yet, return empty
         if (this.state === null) return <span data-note="Component not mounted" />
-    
+
         const {
             gridID,
             data,

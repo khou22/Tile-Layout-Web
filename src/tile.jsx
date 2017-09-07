@@ -151,8 +151,8 @@ Tile.propTypes = {
     textColor: PropTypes.string.isRequired,
     openNewWindow: PropTypes.bool.isRequired,
     size: PropTypes.shape({
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
+        width: PropTypes.string.isRequired,
+        height: PropTypes.string.isRequired,
     }).isRequired,
 };
 

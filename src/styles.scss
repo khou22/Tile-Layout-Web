@@ -127,13 +127,14 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
     height: 100%;
     position: absolute;
     top: 0;
+    z-index: 1; // Behind text
   }
 
   &-background {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0; // Behind text
 
     // Sizing
     width: 100%;
@@ -234,7 +235,7 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
     &-arrow {
         width: 30px;
         height: 50px;
-        background: rgba(255, 255, 255, 0); 
+        background: rgba(255, 255, 255, 0);
 
         svg {
             width: 100%;

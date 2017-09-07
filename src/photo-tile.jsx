@@ -94,7 +94,6 @@ PhotoTile.propTypes = {
     index: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
-    openNewWindow: PropTypes.bool.isRequired,
     size: PropTypes.shape({
         width: PropTypes.string.isRequired,
         height: PropTypes.string.isRequired,

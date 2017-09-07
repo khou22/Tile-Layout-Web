@@ -14,6 +14,19 @@ import rightCarrot from './right-carrot.svg';
 
 class PhotoModal extends Component {
 
+    // Determine if an element is the child element of another node
+    // Credit: https://stackoverflow.com/questions/2234979/how-to-check-in-javascript-if-one-element-is-contained-within-another @Asaph
+    static isDescendant(parent, child) {
+        let node = child.parentNode;
+        while (node != null) {
+            if (node === parent) {
+                return true;
+            }
+            node = node.parentNode;
+        }
+        return false;
+    }
+
     // Pressed image
     openLink() {
         const hasLink = (this.props.link && this.props.link !== ''); // Bool to track if link
@@ -25,7 +38,7 @@ class PhotoModal extends Component {
             window.open(this.props.link);
         }
     }
-    
+
     clickLeft() {
         this.props.updateModal(true);
     }
@@ -44,39 +57,42 @@ class PhotoModal extends Component {
         this.props.closeModal();
     }
 
-    // Credit: https://stackoverflow.com/questions/2234979/how-to-check-in-javascript-if-one-element-is-contained-within-another @Asaph
-    isDescendant(parent, child) {
-        var node = child.parentNode;
-        while (node != null) {
-            if (node == parent) {
-                return true;
-            }
-            node = node.parentNode;
-        }
-        return false;
-    }
-
     // Render the DOM
     render() {
-        // Determine if new window
-        let target = '';
-        if (this.props.openNewWindow) {
-            target = '_blank';
-        }
-
         const hideLeft = this.props.left ? '' : 'modal-arrow-hide';
         const hideRight = this.props.right ? '' : 'modal-arrow-hide';
 
         return (
-            <div className="modal-background" onClick={(event) => { this.clickedBackground(event) }} role="Close">
+            <div className="modal-background" onClick={(event) => { this.clickedBackground(event); }} role="button" tabIndex="0">
                 <div className="modal-close">
-                    <a onClick={this.props.closeModal} title="Close" role="Close">X</a>
+                    <a onClick={this.props.closeModal} title="Close" role="button" tabIndex="0">X</a>
                 </div>
-                <div id="modal-left" onClick={() => { this.clickLeft() }} className={"modal-arrow " + hideLeft} dangerouslySetInnerHTML={{ __html: leftCarrot }} />
+                <div
+                    id="modal-left"
+                    onClick={() => { this.clickLeft(); }}
+                    className={`modal-arrow ${hideLeft}`}
+                    dangerouslySetInnerHTML={{ __html: leftCarrot }}
+                    role="button"
+                    tabIndex="0"
+                />
                 <div className="modal-main">
-                    <img src={this.props.image} className="modal-image" alt="" onClick={() => this.openLink()} />
+                    <img
+                        src={this.props.image}
+                        className="modal-image"
+                        alt=""
+                        onClick={() => this.openLink()}
+                        role="button"
+                        tabIndex="0"
+                    />
                 </div>
-                <div id="modal-right" onClick={() => { this.clickRight() }} className={"modal-arrow " + hideRight} dangerouslySetInnerHTML={{ __html: rightCarrot }} />
+                <div
+                    id="modal-right"
+                    onClick={() => { this.clickRight(); }}
+                    className={`modal-arrow ${hideRight}`}
+                    dangerouslySetInnerHTML={{ __html: rightCarrot }}
+                    role="button"
+                    tabIndex="0"
+                />
             </div>
         );
     }

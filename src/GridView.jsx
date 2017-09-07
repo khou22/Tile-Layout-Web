@@ -71,7 +71,7 @@ class GridView extends Component {
     // Render the DOM
     render() {
         // Establish standards
-        let baseWidth = Math.floor(100 / this.props.columns); // Get percentage width
+        const baseWidth = Math.floor(100 / this.props.columns); // Get percentage width
 
         const textColor = this.props.textColor; // Store text color
 
@@ -103,7 +103,6 @@ class GridView extends Component {
                         key={idCount}
                         image={image}
                         link={link}
-                        openNewWindow={this.props.openNewWindow}
                         size={size}
                         clickedTile={(data, index) => this.clickedTile(data, index)}
                     />
@@ -127,15 +126,18 @@ class GridView extends Component {
         });
         return (
             <div>
-                { (this.state && this.state.modalOpen) ? <PhotoModal
-                    image={this.state.selectedPhoto.image}
-                    link={this.state.selectedPhoto.link}
-                    left={this.state.selectedPhoto.index !== 0}
-                    right={this.state.selectedPhoto.index !== this.props.data.length - 1}
-                    openNewWindow={this.props.openNewWindow}
-                    closeModal={() => this.closeModal()}
-                    updateModal={(left) => this.updateModal(left)}
-                    /> : ''
+                { (this.state && this.state.modalOpen) ?
+                    <PhotoModal
+                        image={this.state.selectedPhoto.image}
+                        link={this.state.selectedPhoto.link}
+                        left={this.state.selectedPhoto.index !== 0}
+                        right={this.state.selectedPhoto.index !== this.props.data.length - 1}
+                        openNewWindow={this.props.openNewWindow}
+                        closeModal={() => this.closeModal()}
+                        updateModal={(left) => { this.updateModal(left); }}
+                    />
+                        :
+                    ''
                 }
                 <div className="main-grid">
                     {tileNodes}
