@@ -16,7 +16,7 @@ class PhotoModal extends Component {
 
     // Determine if an element is the child element of another node
     // Credit: https://stackoverflow.com/questions/2234979/how-to-check-in-javascript-if-one-element-is-contained-within-another @Asaph
-    static isDescendant(parent, child) {
+    isDescendant(parent, child) {
         let node = child.parentNode;
         while (node != null) {
             if (node === parent) {
@@ -63,9 +63,9 @@ class PhotoModal extends Component {
         const hideRight = this.props.right ? '' : 'modal-arrow-hide';
 
         return (
-            <div className="modal-background" onClick={(event) => { this.clickedBackground(event); }} role="button" tabIndex="0">
+            <div className="modal-background" onClick={(event) => { this.clickedBackground(event); }}>
                 <div className="modal-close">
-                    <a onClick={this.props.closeModal} title="Close" role="button" tabIndex="0">X</a>
+                    <a onClick={this.props.closeModal} title="Close">X</a>
                 </div>
                 <div
                     id="modal-left"

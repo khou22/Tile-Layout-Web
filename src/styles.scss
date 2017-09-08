@@ -248,6 +248,10 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
         }
     }
 
+    &-arrow:focus {
+        outline: none;
+    }
+
     // X arrow in top right corner
     &-close {
         position: fixed;
