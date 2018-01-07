@@ -230,6 +230,9 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
         display: block;
         margin: auto;
         cursor: pointer;
+
+        // Styling
+        outline: none;
     }
 
     &-arrow {
