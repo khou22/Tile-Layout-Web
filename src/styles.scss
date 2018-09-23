@@ -206,7 +206,7 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
         top: 0;
         left: 0;
 
-        z-index: 50; // Ensure above everything else
+        z-index: 9999; // Ensure above everything else
 
         // Add opacity filter
         background-color: rgba(0, 0, 0, 0.5);
@@ -217,6 +217,7 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
         margin: auto;
         max-width: 85%;
         height: 85%;
+        flex-direction: column; // Caption is underneath image
 
         animation: fadeIn 400ms;
     }
@@ -233,6 +234,14 @@ $mobile-cuttoff: 500px; // iPhone 7 Plus - 414 Width
 
         // Styling
         outline: none;
+
+        &-caption {
+            margin: 0;
+            padding: 6px;
+            background-color: white;
+            text-align: center;
+            font-size: 12px;
+        }
     }
 
     &-arrow {

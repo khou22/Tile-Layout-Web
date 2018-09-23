@@ -61,6 +61,7 @@ class PhotoModal extends Component {
     render() {
         const hideLeft = this.props.left ? '' : 'modal-arrow-hide';
         const hideRight = this.props.right ? '' : 'modal-arrow-hide';
+        console.log(this.props.caption);
 
         return (
             <div className="modal-background" onClick={(event) => { this.clickedBackground(event); }}>
@@ -84,6 +85,12 @@ class PhotoModal extends Component {
                         role="button"
                         tabIndex="0"
                     />
+                    {
+                        this.props.caption ?
+                            <p className="modal-image-caption">{this.props.caption}</p>
+                            :
+                            <span data-note="No caption" />
+                    }
                 </div>
                 <div
                     id="modal-right"
@@ -100,6 +107,7 @@ class PhotoModal extends Component {
 
 PhotoModal.propTypes = {
     image: PropTypes.string.isRequired,
+    caption: PropTypes.string,
     link: PropTypes.string.isRequired,
     left: PropTypes.bool.isRequired,
     right: PropTypes.bool.isRequired,
