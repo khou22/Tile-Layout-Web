@@ -61,7 +61,6 @@ class PhotoModal extends Component {
     render() {
         const hideLeft = this.props.left ? '' : 'modal-arrow-hide';
         const hideRight = this.props.right ? '' : 'modal-arrow-hide';
-        console.log(this.props.caption);
 
         return (
             <div className="modal-background" onClick={(event) => { this.clickedBackground(event); }}>
