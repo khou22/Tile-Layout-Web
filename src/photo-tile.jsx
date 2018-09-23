@@ -36,6 +36,7 @@ class PhotoTile extends Component {
         const data = {
             image: this.props.image,
             link: this.props.link,
+            caption: this.props.caption,
         };
         this.props.clickedTile(data, this.props.index);
     }
@@ -93,6 +94,7 @@ PhotoTile.propTypes = {
     id: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
+    caption: PropTypes.string,
     link: PropTypes.string.isRequired,
     size: PropTypes.shape({
         width: PropTypes.string.isRequired,

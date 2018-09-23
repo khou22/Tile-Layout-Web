@@ -36,6 +36,7 @@ class GridView extends Component {
                     index: id,
                     image: data.image,
                     link: data.link,
+                    caption: data.caption,
                 },
             });
         } else {
@@ -55,6 +56,7 @@ class GridView extends Component {
                 index: newID,
                 image: this.props.data[newID].image,
                 link: this.props.data[newID].link,
+                caption: this.props.data[newID].caption,
             },
         });
     }
@@ -91,6 +93,7 @@ class GridView extends Component {
                 title,
                 subtitle,
                 description,
+                caption, // Can be null
                 image,
                 link,
                 category,
@@ -104,6 +107,7 @@ class GridView extends Component {
                         image={image}
                         link={link}
                         size={size}
+                        caption={caption}
                         clickedTile={(data, index) => this.clickedTile(data, index)}
                     />
                 );
@@ -129,6 +133,7 @@ class GridView extends Component {
                 { (this.state && this.state.modalOpen) ?
                     <PhotoModal
                         image={this.state.selectedPhoto.image}
+                        caption={this.state.selectedPhoto.caption}
                         link={this.state.selectedPhoto.link}
                         left={this.state.selectedPhoto.index !== 0}
                         right={this.state.selectedPhoto.index !== this.props.data.length - 1}
@@ -154,6 +159,7 @@ GridView.propTypes = {
         title: PropTypes.string,
         subtitle: PropTypes.string,
         description: PropTypes.string,
+        caption: PropTypes.string,
         image: PropTypes.string.isRequired,
         link: PropTypes.string.isRequired,
         size: PropTypes.string.isRequired,
