@@ -54,8 +54,8 @@ class PhotoModal extends Component {
         const modalImg = document.getElementById('modal-image');
         if (this.isDescendant(left, event.target)) return;
         if (this.isDescendant(right, event.target)) return;
-        if (this.isDescendant(caption, event.target)) return;
-        if (this.isDescendant(modalImg, event.target)) return;
+        if (caption === event.target) return;
+        if (modalImg === event.target) return;
 
         // console.log('Clicked background, closing modal...');
         this.props.closeModal();
