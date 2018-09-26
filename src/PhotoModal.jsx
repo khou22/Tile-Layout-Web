@@ -50,8 +50,12 @@ class PhotoModal extends Component {
     clickedBackground(event) {
         const left = document.getElementById('modal-left');
         const right = document.getElementById('modal-right');
+        const caption = document.getElementById('caption');
+        const modalImg = document.getElementById('modal-image');
         if (this.isDescendant(left, event.target)) return;
         if (this.isDescendant(right, event.target)) return;
+        if (this.isDescendant(caption, event.target)) return;
+        if (this.isDescendant(modalImg, event.target)) return;
 
         // console.log('Clicked background, closing modal...');
         this.props.closeModal();
@@ -77,6 +81,7 @@ class PhotoModal extends Component {
                 />
                 <div className="modal-main">
                     <img
+                        id="modal-image"
                         src={this.props.image}
                         className="modal-image"
                         alt=""
@@ -86,7 +91,7 @@ class PhotoModal extends Component {
                     />
                     {
                         this.props.caption ?
-                            <p className="modal-image-caption">{this.props.caption}</p>
+                            <p className="modal-image-caption" id="caption">{this.props.caption}</p>
                             :
                             <span data-note="No caption" />
                     }
